@@ -263,16 +263,9 @@ func (p dockerPusher) push(ctx context.Context, desc ocispec.Descriptor, ref str
 
 	pr, pw := io.Pipe()
 	respC := make(chan response, 1)
-	body := ioutil.NopCloser(pr)
 
 	req.body = func() (io.ReadCloser, error) {
-		if body == nil {
-			return nil, errors.New("cannot reuse body, request must be retried")
-		}
-		// Only use the body once since pipe cannot be seeked
-		ob := body
-		body = nil
-		return ob, nil
+		return ioutil.NopCloser(pr), nil
 	}
 	req.size = desc.Size
 
