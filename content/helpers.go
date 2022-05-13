@@ -30,6 +30,8 @@ import (
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
+var ErrReset = errors.New("writer has been reset")
+
 var bufPool = sync.Pool{
 	New: func() interface{} {
 		buffer := make([]byte, 1<<20)
@@ -131,26 +133,41 @@ func OpenWriter(ctx context.Context, cs Ingester, opts ...WriterOpt) (Writer, er
 // the size or digest is unknown, these values may be empty.
 //
 // Copy is buffered, so no need to wrap reader in buffered io.
-func Copy(ctx context.Context, cw Writer, r io.Reader, size int64, expected digest.Digest, opts ...Opt) error {
+func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected digest.Digest, opts ...Opt) error {
 	ws, err := cw.Status()
 	if err != nil {
 		return fmt.Errorf("failed to get status: %w", err)
 	}
-
+	r := or
 	if ws.Offset > 0 {
-		r, err = seekReader(r, ws.Offset, size)
+		r, err = seekReader(or, ws.Offset, size)
 		if err != nil {
 			return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
 		}
 	}
 
-	copied, err := copyWithBuffer(cw, r)
-	if err != nil {
-		return fmt.Errorf("failed to copy: %w", err)
-	}
-	if size != 0 && copied < size-ws.Offset {
-		// Short writes would return its own error, this indicates a read failure
-		return fmt.Errorf("failed to read expected number of bytes: %w", io.ErrUnexpectedEOF)
+	// Maximum of 5 resets
+	for i := 0; i < 5; i++ {
+		copied, err := copyWithBuffer(cw, r)
+		if err != nil {
+			if errors.Is(err, ErrReset) {
+				ws, err := cw.Status()
+				if err != nil {
+					return fmt.Errorf("failed to get status: %w", err)
+				}
+				r, err = seekReader(or, ws.Offset, size)
+				if err != nil {
+					return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
+				}
+				continue
+			}
+			return fmt.Errorf("failed to copy: %w", err)
+		}
+		if size != 0 && copied < size-ws.Offset {
+			// Short writes would return its own error, this indicates a read failure
+			return fmt.Errorf("failed to read expected number of bytes: %w", io.ErrUnexpectedEOF)
+		}
+		break
 	}
 
 	if err := cw.Commit(ctx, size, expected, opts...); err != nil {
