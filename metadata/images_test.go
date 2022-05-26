@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/filters"
 	"github.com/containerd/containerd/images"
 	digest "github.com/opencontainers/go-digest"

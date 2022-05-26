@@ -29,7 +29,6 @@ import (
 	"strings"
 
 	"github.com/containerd/console"
-	"github.com/containerd/containerd/api/runtime/task/v2"
 	"github.com/containerd/containerd/cmd/ctr/commands"
 	"github.com/containerd/containerd/namespaces"
 	ptypes "github.com/containerd/containerd/protobuf/types"

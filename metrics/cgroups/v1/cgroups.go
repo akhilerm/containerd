@@ -23,8 +23,8 @@ import (
 	"context"
 
 	"github.com/containerd/cgroups"
-	eventstypes "github.com/containerd/containerd/api/events"
-	"github.com/containerd/containerd/errdefs"
+	eventstypes "github.com/containerd/containerd-api/api/events"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/namespaces"

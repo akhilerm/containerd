@@ -20,10 +20,10 @@ package converter
 import (
 	"context"
 
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/leases"
-	"github.com/containerd/containerd/platforms"
 )
 
 type convertOpts struct {

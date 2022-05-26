@@ -26,7 +26,7 @@ import (
 	"github.com/containerd/ttrpc"
 	log "github.com/sirupsen/logrus"
 
-	api "github.com/containerd/containerd/api/runtime/sandbox/v1"
+	api "github.com/containerd/containerd-api/api/runtime/sandbox/v1"
 	"github.com/containerd/containerd/plugin"
 )
 

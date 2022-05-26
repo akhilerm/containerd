@@ -20,9 +20,9 @@ import (
 	"context"
 	"errors"
 
-	snapshotsapi "github.com/containerd/containerd/api/services/snapshots/v1"
-	"github.com/containerd/containerd/api/types"
-	"github.com/containerd/containerd/errdefs"
+	snapshotsapi "github.com/containerd/containerd-api/api/services/snapshots/v1"
+	"github.com/containerd/containerd-api/api/types"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/mount"
 	"github.com/containerd/containerd/plugin"

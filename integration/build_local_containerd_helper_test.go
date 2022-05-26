@@ -24,10 +24,10 @@ import (
 	"testing"
 
 	"github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/leases"
 	"github.com/containerd/containerd/pkg/cri/constants"
-	"github.com/containerd/containerd/platforms"
 	"github.com/containerd/containerd/plugin"
 	"github.com/containerd/containerd/services"
 	ctrdsrv "github.com/containerd/containerd/services/server"
@@ -37,12 +37,12 @@ import (
 	// NOTE: Importing containerd plugin(s) to build functionality in
 	// client side, which means there is no need to up server. It can
 	// prevent interference from testing with the same image.
-	containersapi "github.com/containerd/containerd/api/services/containers/v1"
-	diffapi "github.com/containerd/containerd/api/services/diff/v1"
-	imagesapi "github.com/containerd/containerd/api/services/images/v1"
-	introspectionapi "github.com/containerd/containerd/api/services/introspection/v1"
-	namespacesapi "github.com/containerd/containerd/api/services/namespaces/v1"
-	tasksapi "github.com/containerd/containerd/api/services/tasks/v1"
+	containersapi "github.com/containerd/containerd-api/api/services/containers/v1"
+	diffapi "github.com/containerd/containerd-api/api/services/diff/v1"
+	imagesapi "github.com/containerd/containerd-api/api/services/images/v1"
+	introspectionapi "github.com/containerd/containerd-api/api/services/introspection/v1"
+	namespacesapi "github.com/containerd/containerd-api/api/services/namespaces/v1"
+	tasksapi "github.com/containerd/containerd-api/api/services/tasks/v1"
 	_ "github.com/containerd/containerd/diff/walking/plugin"
 	"github.com/containerd/containerd/events/exchange"
 	_ "github.com/containerd/containerd/events/plugin"

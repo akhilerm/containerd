@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	eventstypes "github.com/containerd/containerd/api/events"
-	"github.com/containerd/containerd/errdefs"
+	eventstypes "github.com/containerd/containerd-api/api/events"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/namespaces"
 	"github.com/containerd/containerd/protobuf"

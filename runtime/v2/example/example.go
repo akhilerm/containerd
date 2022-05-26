@@ -23,8 +23,8 @@ import (
 	"context"
 	"os"
 
-	taskAPI "github.com/containerd/containerd/api/runtime/task/v2"
-	"github.com/containerd/containerd/errdefs"
+	taskAPI "github.com/containerd/containerd-api/api/runtime/task/v2"
+	"github.com/containerd/containerd-api/errdefs"
 	ptypes "github.com/containerd/containerd/protobuf/types"
 	"github.com/containerd/containerd/runtime/v2/shim"
 )

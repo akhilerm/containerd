@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/leases"
 	bolt "go.etcd.io/bbolt"
 )

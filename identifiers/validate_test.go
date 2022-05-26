@@ -20,7 +20,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 )
 
 func TestValidIdentifiers(t *testing.T) {

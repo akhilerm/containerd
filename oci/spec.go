@@ -21,8 +21,8 @@ import (
 	"path/filepath"
 	"runtime"
 
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/namespaces"
-	"github.com/containerd/containerd/platforms"
 
 	"github.com/containerd/containerd/containers"
 	specs "github.com/opencontainers/runtime-spec/specs-go"

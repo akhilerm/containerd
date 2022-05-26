@@ -20,9 +20,9 @@ import (
 	"context"
 	"strings"
 
-	eventstypes "github.com/containerd/containerd/api/events"
-	api "github.com/containerd/containerd/api/services/namespaces/v1"
-	"github.com/containerd/containerd/errdefs"
+	eventstypes "github.com/containerd/containerd-api/api/events"
+	api "github.com/containerd/containerd-api/api/services/namespaces/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/metadata"
 	"github.com/containerd/containerd/namespaces"

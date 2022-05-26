@@ -23,8 +23,8 @@ import (
 	"sync"
 
 	"github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/pkg/cri/util"
 
 	imagedigest "github.com/opencontainers/go-digest"

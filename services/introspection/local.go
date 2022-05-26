@@ -22,9 +22,9 @@ import (
 	"path/filepath"
 	"sync"
 
-	api "github.com/containerd/containerd/api/services/introspection/v1"
-	"github.com/containerd/containerd/api/types"
-	"github.com/containerd/containerd/errdefs"
+	api "github.com/containerd/containerd-api/api/services/introspection/v1"
+	"github.com/containerd/containerd-api/api/types"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/filters"
 	"github.com/containerd/containerd/plugin"
 	ptypes "github.com/containerd/containerd/protobuf/types"

@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/identifiers"
 )
 

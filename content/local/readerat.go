@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 )
 
 // readerat implements io.ReaderAt in a completely stateless manner by opening

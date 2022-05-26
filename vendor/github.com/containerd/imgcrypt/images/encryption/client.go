@@ -21,9 +21,9 @@ import (
 	"fmt"
 
 	"github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/diff"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/imgcrypt"
 	"github.com/containerd/typeurl"
 

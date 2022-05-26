@@ -23,8 +23,8 @@ import (
 	"syscall"
 	"time"
 
-	eventtypes "github.com/containerd/containerd/api/events"
-	"github.com/containerd/containerd/errdefs"
+	eventtypes "github.com/containerd/containerd-api/api/events"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/protobuf"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"

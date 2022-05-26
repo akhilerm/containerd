@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	v1 "github.com/containerd/containerd/api/services/ttrpc/events/v1"
+	v1 "github.com/containerd/containerd-api/api/services/ttrpc/events/v1"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/namespaces"
 	"github.com/containerd/containerd/pkg/ttrpcutil"

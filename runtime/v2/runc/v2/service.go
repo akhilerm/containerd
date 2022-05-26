@@ -22,7 +22,7 @@ package v2
 import (
 	"context"
 
-	shimapi "github.com/containerd/containerd/api/runtime/task/v2"
+	shimapi "github.com/containerd/containerd-api/api/runtime/task/v2"
 	"github.com/containerd/containerd/pkg/shutdown"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/containerd/runtime/v2/runc/manager"

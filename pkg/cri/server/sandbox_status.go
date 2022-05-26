@@ -23,7 +23,7 @@ import (
 	goruntime "runtime"
 
 	"github.com/containerd/containerd"
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	cni "github.com/containerd/go-cni"
 	runtimespec "github.com/opencontainers/runtime-spec/specs-go"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"

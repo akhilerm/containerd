@@ -25,7 +25,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/containerd/containerd/api/events"
+	"github.com/containerd/containerd-api/api/events"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/runtime"
 	specs "github.com/opencontainers/runtime-spec/specs-go"

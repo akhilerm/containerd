@@ -24,8 +24,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/containers"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/filters"
 	"github.com/containerd/containerd/log/logtest"
 	"github.com/containerd/containerd/namespaces"

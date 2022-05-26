@@ -17,7 +17,7 @@
 package containers
 
 import (
-	api "github.com/containerd/containerd/api/services/containers/v1"
+	api "github.com/containerd/containerd-api/api/services/containers/v1"
 	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/containerd/protobuf/types"

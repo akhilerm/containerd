@@ -25,9 +25,9 @@ import (
 	"text/tabwriter"
 	"time"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/cmd/ctr/commands"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/log"
 	units "github.com/docker/go-units"
 	digest "github.com/opencontainers/go-digest"

@@ -26,8 +26,8 @@ import (
 	"sync"
 
 	"github.com/containerd/cgroups"
-	eventstypes "github.com/containerd/containerd/api/events"
-	"github.com/containerd/containerd/errdefs"
+	eventstypes "github.com/containerd/containerd-api/api/events"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events/exchange"
 	"github.com/containerd/containerd/identifiers"
 	"github.com/containerd/containerd/log"

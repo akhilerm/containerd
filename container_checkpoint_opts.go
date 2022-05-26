@@ -23,11 +23,11 @@ import (
 	"fmt"
 	"runtime"
 
-	tasks "github.com/containerd/containerd/api/services/tasks/v1"
+	tasks "github.com/containerd/containerd-api/api/services/tasks/v1"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/diff"
 	"github.com/containerd/containerd/images"
-	"github.com/containerd/containerd/platforms"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/containerd/protobuf/proto"
 	"github.com/containerd/containerd/rootfs"

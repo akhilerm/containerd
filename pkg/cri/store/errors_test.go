@@ -19,7 +19,7 @@ package store
 import (
 	"testing"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

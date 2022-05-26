@@ -29,10 +29,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/content/local"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/gc"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/leases"

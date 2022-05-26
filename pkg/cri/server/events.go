@@ -24,9 +24,9 @@ import (
 	"time"
 
 	"github.com/containerd/containerd"
-	eventtypes "github.com/containerd/containerd/api/events"
+	eventtypes "github.com/containerd/containerd-api/api/events"
+	"github.com/containerd/containerd-api/errdefs"
 	containerdio "github.com/containerd/containerd/cio"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/pkg/cri/constants"
 	containerstore "github.com/containerd/containerd/pkg/cri/store/container"

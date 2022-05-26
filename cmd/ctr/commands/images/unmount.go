@@ -19,8 +19,8 @@ package images
 import (
 	"fmt"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/cmd/ctr/commands"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/leases"
 	"github.com/containerd/containerd/mount"
 	"github.com/urfave/cli"

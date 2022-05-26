@@ -20,9 +20,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/containerd/containerd/api/runtime/task/v2"
-	tasktypes "github.com/containerd/containerd/api/types/task"
-	"github.com/containerd/containerd/errdefs"
+	tasktypes "github.com/containerd/containerd-api/api/types/task"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/containerd/runtime"
 	"github.com/containerd/ttrpc"

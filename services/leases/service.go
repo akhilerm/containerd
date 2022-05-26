@@ -19,8 +19,8 @@ package leases
 import (
 	"context"
 
-	api "github.com/containerd/containerd/api/services/leases/v1"
-	"github.com/containerd/containerd/errdefs"
+	api "github.com/containerd/containerd-api/api/services/leases/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/leases"
 	"github.com/containerd/containerd/plugin"
 	"github.com/containerd/containerd/protobuf"

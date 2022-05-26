@@ -21,7 +21,7 @@ import (
 	"errors"
 	"io"
 
-	api "github.com/containerd/containerd/api/services/containers/v1"
+	api "github.com/containerd/containerd-api/api/services/containers/v1"
 	"github.com/containerd/containerd/plugin"
 	ptypes "github.com/containerd/containerd/protobuf/types"
 	"github.com/containerd/containerd/services"

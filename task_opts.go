@@ -23,9 +23,9 @@ import (
 	"fmt"
 	"syscall"
 
-	"github.com/containerd/containerd/api/types"
+	"github.com/containerd/containerd-api/api/types"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/mount"
 	"github.com/containerd/containerd/runtime/linux/runctypes"

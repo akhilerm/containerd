@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/identifiers"
 	l "github.com/containerd/containerd/labels"
 	"github.com/containerd/containerd/namespaces"

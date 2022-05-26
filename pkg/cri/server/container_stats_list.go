@@ -20,8 +20,8 @@ import (
 	"context"
 	"fmt"
 
-	tasks "github.com/containerd/containerd/api/services/tasks/v1"
-	"github.com/containerd/containerd/api/types"
+	tasks "github.com/containerd/containerd-api/api/services/tasks/v1"
+	"github.com/containerd/containerd-api/api/types"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"
 
 	containerstore "github.com/containerd/containerd/pkg/cri/store/container"

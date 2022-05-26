@@ -19,7 +19,7 @@ package version
 import (
 	"context"
 
-	api "github.com/containerd/containerd/api/services/version/v1"
+	api "github.com/containerd/containerd-api/api/services/version/v1"
 	"github.com/containerd/containerd/plugin"
 	ptypes "github.com/containerd/containerd/protobuf/types"
 	ctrdversion "github.com/containerd/containerd/version"

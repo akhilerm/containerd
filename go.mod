@@ -11,6 +11,7 @@ require (
 	github.com/containerd/btrfs v1.0.0
 	github.com/containerd/cgroups v1.0.3
 	github.com/containerd/console v1.0.3
+	github.com/containerd/containerd-api v0.0.0
 	github.com/containerd/continuity v0.2.2
 	github.com/containerd/fifo v1.0.0
 	github.com/containerd/go-cni v1.1.5
@@ -28,7 +29,7 @@ require (
 	github.com/docker/go-units v0.4.0
 	github.com/emicklei/go-restful/v3 v3.7.3
 	github.com/fsnotify/fsnotify v1.5.1
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.8
 	github.com/google/uuid v1.2.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
@@ -49,7 +50,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.11.1
 	github.com/sirupsen/logrus v1.8.1
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	github.com/tchap/go-patricia/v2 v2.3.1
 	github.com/urfave/cli v1.22.2
 	github.com/vishvananda/netlink v1.1.1-0.20210330154013-f5de75959ad5
@@ -83,7 +84,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cilium/ebpf v0.7.0 // indirect
 	github.com/containernetworking/cni v1.1.0 // indirect
-	github.com/containers/ocicrypt v1.1.3 // indirect
+	github.com/containers/ocicrypt v1.1.4 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/emicklei/go-restful v2.9.5+incompatible // indirect
 	github.com/go-logr/logr v1.2.2 // indirect
@@ -98,7 +99,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/miekg/pkcs11 v1.1.1 // indirect
-	github.com/mistifyio/go-zfs v2.1.2-0.20190413222219-f784269be439+incompatible // indirect
+	github.com/mistifyio/go-zfs/v3 v3.0.0 // indirect
 	github.com/moby/spdystream v0.2.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
@@ -138,3 +139,11 @@ require (
 // When updating replace rules, make sure to also update the rules in integration/client/go.mod and api/go.mod
 // urfave/cli must be <= v1.22.1 due to a regression: https://github.com/urfave/cli/issues/1092
 replace github.com/urfave/cli => github.com/urfave/cli v1.22.1
+
+replace github.com/containerd/containerd-api => /Users/makhil/go/src/github.com/containerd/containerd-api
+
+replace github.com/containerd/aufs => /Users/makhil/go/src/github.com/containerd/aufs
+
+replace github.com/containerd/imgcrypt => /Users/makhil/go/src/github.com/containerd/imgcrypt
+
+replace github.com/containerd/zfs => /Users/makhil/go/src/github.com/containerd/zfs

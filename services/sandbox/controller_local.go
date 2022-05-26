@@ -20,9 +20,9 @@ import (
 	"context"
 	"fmt"
 
-	runtimeAPI "github.com/containerd/containerd/api/runtime/sandbox/v1"
-	api "github.com/containerd/containerd/api/services/sandbox/v1"
-	"github.com/containerd/containerd/errdefs"
+	runtimeAPI "github.com/containerd/containerd-api/api/runtime/sandbox/v1"
+	api "github.com/containerd/containerd-api/api/services/sandbox/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/events/exchange"
 	"github.com/containerd/containerd/metadata"

@@ -19,9 +19,9 @@ package images
 import (
 	"context"
 
-	eventstypes "github.com/containerd/containerd/api/events"
-	imagesapi "github.com/containerd/containerd/api/services/images/v1"
-	"github.com/containerd/containerd/errdefs"
+	eventstypes "github.com/containerd/containerd-api/api/events"
+	imagesapi "github.com/containerd/containerd-api/api/services/images/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/gc"
 	"github.com/containerd/containerd/images"

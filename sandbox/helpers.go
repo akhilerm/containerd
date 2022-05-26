@@ -17,7 +17,7 @@
 package sandbox
 
 import (
-	"github.com/containerd/containerd/api/types"
+	"github.com/containerd/containerd-api/api/types"
 	"github.com/containerd/containerd/protobuf"
 	gogo_types "github.com/containerd/containerd/protobuf/types"
 	"github.com/containerd/typeurl"

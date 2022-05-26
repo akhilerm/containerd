@@ -23,9 +23,8 @@ import (
 	"os"
 	"testing"
 
-	. "github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/images/archive"
-	"github.com/containerd/containerd/platforms"
 )
 
 // TestExport exports testImage as a tar stream

@@ -19,13 +19,13 @@ package containerd
 import (
 	"context"
 	"fmt"
+	tasksapi "github.com/containerd/containerd-api/api/services/tasks/v1"
 	"strings"
 	"syscall"
 	"time"
 
-	"github.com/containerd/containerd/api/services/tasks/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/cio"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/protobuf"
 )
 
@@ -116,7 +116,7 @@ func (p *process) Pid() uint32 {
 
 // Start starts the exec process
 func (p *process) Start(ctx context.Context) error {
-	r, err := p.task.client.TaskService().Start(ctx, &tasks.StartRequest{
+	r, err := p.task.client.TaskService().Start(ctx, &tasksapi.StartRequest{
 		ContainerID: p.task.id,
 		ExecID:      p.id,
 	})
@@ -139,7 +139,7 @@ func (p *process) Kill(ctx context.Context, s syscall.Signal, opts ...KillOpts) 
 			return err
 		}
 	}
-	_, err := p.task.client.TaskService().Kill(ctx, &tasks.KillRequest{
+	_, err := p.task.client.TaskService().Kill(ctx, &tasksapi.KillRequest{
 		Signal:      uint32(s),
 		ContainerID: p.task.id,
 		ExecID:      p.id,
@@ -152,7 +152,7 @@ func (p *process) Wait(ctx context.Context) (<-chan ExitStatus, error) {
 	c := make(chan ExitStatus, 1)
 	go func() {
 		defer close(c)
-		r, err := p.task.client.TaskService().Wait(ctx, &tasks.WaitRequest{
+		r, err := p.task.client.TaskService().Wait(ctx, &tasksapi.WaitRequest{
 			ContainerID: p.task.id,
 			ExecID:      p.id,
 		})
@@ -172,7 +172,7 @@ func (p *process) Wait(ctx context.Context) (<-chan ExitStatus, error) {
 }
 
 func (p *process) CloseIO(ctx context.Context, opts ...IOCloserOpts) error {
-	r := &tasks.CloseIORequest{
+	r := &tasksapi.CloseIORequest{
 		ContainerID: p.task.id,
 		ExecID:      p.id,
 	}
@@ -190,7 +190,7 @@ func (p *process) IO() cio.IO {
 }
 
 func (p *process) Resize(ctx context.Context, w, h uint32) error {
-	_, err := p.task.client.TaskService().ResizePty(ctx, &tasks.ResizePtyRequest{
+	_, err := p.task.client.TaskService().ResizePty(ctx, &tasksapi.ResizePtyRequest{
 		ContainerID: p.task.id,
 		Width:       w,
 		Height:      h,
@@ -213,7 +213,7 @@ func (p *process) Delete(ctx context.Context, opts ...ProcessDeleteOpts) (*ExitS
 	case Running, Paused, Pausing:
 		return nil, fmt.Errorf("current process state: %s, process must be stopped before deletion: %w", status.Status, errdefs.ErrFailedPrecondition)
 	}
-	r, err := p.task.client.TaskService().DeleteProcess(ctx, &tasks.DeleteProcessRequest{
+	r, err := p.task.client.TaskService().DeleteProcess(ctx, &tasksapi.DeleteProcessRequest{
 		ContainerID: p.task.id,
 		ExecID:      p.id,
 	})
@@ -229,7 +229,7 @@ func (p *process) Delete(ctx context.Context, opts ...ProcessDeleteOpts) (*ExitS
 }
 
 func (p *process) Status(ctx context.Context) (Status, error) {
-	r, err := p.task.client.TaskService().Get(ctx, &tasks.GetRequest{
+	r, err := p.task.client.TaskService().Get(ctx, &tasksapi.GetRequest{
 		ContainerID: p.task.id,
 		ExecID:      p.id,
 	})

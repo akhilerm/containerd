@@ -22,8 +22,8 @@
 package shim
 
 import (
-	types "github.com/containerd/containerd/api/types"
-	task "github.com/containerd/containerd/api/types/task"
+	types "github.com/containerd/containerd-api/api/types"
+	task "github.com/containerd/containerd-api/api/types/task"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
