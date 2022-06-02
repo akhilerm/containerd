@@ -448,16 +448,15 @@ func (pw *pushWriter) Commit(ctx context.Context, size int64, expected digest.Di
 		return err
 	}
 	// TODO: timeout waiting for response
+	var resp *http.Response
 	select {
 	case err := <-pw.errC:
 		if err != nil {
 			return err
 		}
-	case <-pw.respC:
+	case resp = <-pw.respC:
+		defer resp.Body.Close()
 	}
-	resp := <-pw.respC
-
-	defer resp.Body.Close()
 
 	// 201 is specified return status, some registries return
 	// 200, 202 or 204.
