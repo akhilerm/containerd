@@ -140,6 +140,8 @@ require (
 // urfave/cli must be <= v1.22.1 due to a regression: https://github.com/urfave/cli/issues/1092
 replace github.com/urfave/cli => github.com/urfave/cli v1.22.1
 
+// Clone the corresponding repositories from github.com/akhilerm/(aufs/containerd-api/imgcrypt/zfs)
+// and use it instead of the upstream containerd repos. The below repos have containerd-api changes made.
 replace (
 	github.com/containerd/aufs => /Users/makhil/go/src/github.com/containerd/aufs
 	github.com/containerd/containerd-api => /Users/makhil/go/src/github.com/containerd/containerd-api
