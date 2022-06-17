@@ -141,8 +141,8 @@ require (
 replace github.com/urfave/cli => github.com/urfave/cli v1.22.1
 
 replace (
-	github.com/containerd/containerd-api => /Users/makhil/go/src/github.com/containerd/containerd-api
 	github.com/containerd/aufs => /Users/makhil/go/src/github.com/containerd/aufs
- 	github.com/containerd/imgcrypt => /Users/makhil/go/src/github.com/containerd/imgcrypt
+	github.com/containerd/containerd-api => /Users/makhil/go/src/github.com/containerd/containerd-api
+	github.com/containerd/imgcrypt => /Users/makhil/go/src/github.com/containerd/imgcrypt
 	github.com/containerd/zfs => /Users/makhil/go/src/github.com/containerd/zfs
 )
