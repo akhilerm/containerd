@@ -32,16 +32,14 @@ import (
 
 	"github.com/containerd/cgroups"
 	cgroupsv2 "github.com/containerd/cgroups/v2"
-	. "github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/cio"
 	"github.com/containerd/containerd/containers"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/oci"
 	"github.com/containerd/containerd/plugin"
 	"github.com/containerd/containerd/runtime/linux/runctypes"
 	"github.com/containerd/containerd/runtime/v2/runc/options"
 	"github.com/containerd/containerd/sys"
-	"github.com/opencontainers/runtime-spec/specs-go"
 	exec "golang.org/x/sys/execabs"
 	"golang.org/x/sys/unix"
 )

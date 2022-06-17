@@ -17,13 +17,13 @@
 package containerd
 
 import (
-	containersapi "github.com/containerd/containerd/api/services/containers/v1"
-	"github.com/containerd/containerd/api/services/diff/v1"
-	imagesapi "github.com/containerd/containerd/api/services/images/v1"
-	introspectionapi "github.com/containerd/containerd/api/services/introspection/v1"
-	namespacesapi "github.com/containerd/containerd/api/services/namespaces/v1"
-	sandboxsapi "github.com/containerd/containerd/api/services/sandbox/v1"
-	"github.com/containerd/containerd/api/services/tasks/v1"
+	containersapi "github.com/containerd/containerd-api/api/services/containers/v1"
+	diffapi "github.com/containerd/containerd-api/api/services/diff/v1"
+	imagesapi "github.com/containerd/containerd-api/api/services/images/v1"
+	introspectionapi "github.com/containerd/containerd-api/api/services/introspection/v1"
+	namespacesapi "github.com/containerd/containerd-api/api/services/namespaces/v1"
+	sandboxsapi "github.com/containerd/containerd-api/api/services/sandbox/v1"
+	tasksapi "github.com/containerd/containerd-api/api/services/tasks/v1"
 	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/images"
@@ -40,7 +40,7 @@ type services struct {
 	containerStore       containers.Store
 	namespaceStore       namespaces.Store
 	snapshotters         map[string]snapshots.Snapshotter
-	taskService          tasks.TasksClient
+	taskService          tasksapi.TasksClient
 	diffService          DiffService
 	eventService         EventService
 	leasesService        leases.Manager
@@ -98,14 +98,14 @@ func WithContainerStore(containerStore containers.Store) ServicesOpt {
 }
 
 // WithTaskClient sets the task service to use from a tasks client.
-func WithTaskClient(taskService tasks.TasksClient) ServicesOpt {
+func WithTaskClient(taskService tasksapi.TasksClient) ServicesOpt {
 	return func(s *services) {
 		s.taskService = taskService
 	}
 }
 
 // WithDiffClient sets the diff service to use from a diff client.
-func WithDiffClient(diffService diff.DiffClient) ServicesOpt {
+func WithDiffClient(diffService diffapi.DiffClient) ServicesOpt {
 	return func(s *services) {
 		s.diffService = NewDiffServiceFromClient(diffService)
 	}

@@ -22,9 +22,9 @@ import (
 	"github.com/containerd/containerd/services"
 	"google.golang.org/grpc"
 
-	api "github.com/containerd/containerd/api/services/sandbox/v1"
-	"github.com/containerd/containerd/api/types"
-	"github.com/containerd/containerd/errdefs"
+	api "github.com/containerd/containerd-api/api/services/sandbox/v1"
+	"github.com/containerd/containerd-api/api/types"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/metadata"
 	"github.com/containerd/containerd/plugin"

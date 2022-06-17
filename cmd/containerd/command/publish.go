@@ -24,8 +24,8 @@ import (
 	"os"
 	"time"
 
-	eventsapi "github.com/containerd/containerd/api/services/events/v1"
-	"github.com/containerd/containerd/errdefs"
+	eventsapi "github.com/containerd/containerd-api/api/services/events/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/namespaces"
 	"github.com/containerd/containerd/pkg/dialer"
 	"github.com/containerd/containerd/protobuf/proto"

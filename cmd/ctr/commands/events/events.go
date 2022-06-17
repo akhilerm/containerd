@@ -27,7 +27,7 @@ import (
 	"github.com/urfave/cli"
 
 	// Register grpc event types
-	_ "github.com/containerd/containerd/api/events"
+	_ "github.com/containerd/containerd-api/api/events"
 )
 
 // Command is the cli command for displaying containerd events

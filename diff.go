@@ -19,10 +19,10 @@ package containerd
 import (
 	"context"
 
-	diffapi "github.com/containerd/containerd/api/services/diff/v1"
-	"github.com/containerd/containerd/api/types"
+	diffapi "github.com/containerd/containerd-api/api/services/diff/v1"
+	"github.com/containerd/containerd-api/api/types"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/diff"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/mount"
 	"github.com/containerd/containerd/protobuf"
 	ptypes "github.com/containerd/containerd/protobuf/types"

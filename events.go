@@ -19,8 +19,8 @@ package containerd
 import (
 	"context"
 
-	eventsapi "github.com/containerd/containerd/api/services/events/v1"
-	"github.com/containerd/containerd/errdefs"
+	eventsapi "github.com/containerd/containerd-api/api/services/events/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/typeurl"

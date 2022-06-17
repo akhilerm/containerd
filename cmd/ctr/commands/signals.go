@@ -23,7 +23,7 @@ import (
 	"syscall"
 
 	"github.com/containerd/containerd"
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/sirupsen/logrus"
 )
 

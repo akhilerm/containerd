@@ -19,7 +19,7 @@ package snapshots
 import (
 	"context"
 
-	eventstypes "github.com/containerd/containerd/api/events"
+	eventstypes "github.com/containerd/containerd-api/api/events"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/metadata"
 	"github.com/containerd/containerd/mount"

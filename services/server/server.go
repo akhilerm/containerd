@@ -34,8 +34,8 @@ import (
 	"sync"
 	"time"
 
-	csapi "github.com/containerd/containerd/api/services/content/v1"
-	ssapi "github.com/containerd/containerd/api/services/snapshots/v1"
+	csapi "github.com/containerd/containerd-api/api/services/content/v1"
+	ssapi "github.com/containerd/containerd-api/api/services/snapshots/v1"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/content/local"
 	csproxy "github.com/containerd/containerd/content/proxy"

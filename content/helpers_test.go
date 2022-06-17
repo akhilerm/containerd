@@ -24,7 +24,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/opencontainers/go-digest"
 	"github.com/stretchr/testify/assert"
 )

@@ -17,8 +17,8 @@
 package images
 
 import (
-	imagesapi "github.com/containerd/containerd/api/services/images/v1"
-	"github.com/containerd/containerd/api/types"
+	imagesapi "github.com/containerd/containerd-api/api/services/images/v1"
+	"github.com/containerd/containerd-api/api/types"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/opencontainers/go-digest"

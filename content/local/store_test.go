@@ -32,9 +32,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/content/testsuite"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/pkg/testutil"
 
 	"github.com/opencontainers/go-digest"

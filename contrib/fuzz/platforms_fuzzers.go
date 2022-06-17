@@ -20,7 +20,7 @@
 package fuzz
 
 import (
-	"github.com/containerd/containerd/platforms"
+	"github.com/containerd/containerd-api/platforms"
 )
 
 func FuzzPlatformsParse(data []byte) int {

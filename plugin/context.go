@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events/exchange"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )

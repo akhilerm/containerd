@@ -24,12 +24,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/containerd/containerd/api/services/tasks/v1"
-	"github.com/containerd/containerd/api/types"
-	tasktypes "github.com/containerd/containerd/api/types/task"
+	tasksapi "github.com/containerd/containerd-api/api/services/tasks/v1"
+	"github.com/containerd/containerd-api/api/types"
+	tasktypes "github.com/containerd/containerd-api/api/types/task"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/cio"
 	"github.com/containerd/containerd/containers"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/oci"
 	"github.com/containerd/containerd/protobuf"
@@ -219,7 +219,7 @@ func (c *container) NewTask(ctx context.Context, ioCreate cio.Creator, opts ...N
 		}
 	}()
 	cfg := i.Config()
-	request := &tasks.CreateTaskRequest{
+	request := &tasksapi.CreateTaskRequest{
 		ContainerID: c.id,
 		Terminal:    cfg.Terminal,
 		Stdin:       cfg.Stdin,
@@ -385,7 +385,7 @@ func (c *container) Checkpoint(ctx context.Context, ref string, opts ...Checkpoi
 }
 
 func (c *container) loadTask(ctx context.Context, ioAttach cio.Attach) (Task, error) {
-	response, err := c.client.TaskService().Get(ctx, &tasks.GetRequest{
+	response, err := c.client.TaskService().Get(ctx, &tasksapi.GetRequest{
 		ContainerID: c.id,
 	})
 	if err != nil {
@@ -418,13 +418,13 @@ func (c *container) get(ctx context.Context) (containers.Container, error) {
 }
 
 // get the existing fifo paths from the task information stored by the daemon
-func attachExistingIO(response *tasks.GetResponse, ioAttach cio.Attach) (cio.IO, error) {
+func attachExistingIO(response *tasksapi.GetResponse, ioAttach cio.Attach) (cio.IO, error) {
 	fifoSet := loadFifos(response)
 	return ioAttach(fifoSet)
 }
 
 // loadFifos loads the containers fifos
-func loadFifos(response *tasks.GetResponse) *cio.FIFOSet {
+func loadFifos(response *tasksapi.GetResponse) *cio.FIFOSet {
 	fifos := []string{
 		response.Process.Stdin,
 		response.Process.Stdout,

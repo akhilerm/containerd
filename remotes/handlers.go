@@ -24,11 +24,11 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/containerd/containerd-api/errdefs"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/log"
-	"github.com/containerd/containerd/platforms"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"

@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/containerd/containerd/api/types"
+	"github.com/containerd/containerd-api/api/types"
 	v1 "github.com/containerd/containerd/metrics/types/v1"
 	v2 "github.com/containerd/containerd/metrics/types/v2"
 	"github.com/containerd/containerd/protobuf"

@@ -21,8 +21,8 @@ import (
 	"fmt"
 
 	"github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/cmd/ctr/commands"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/urfave/cli"
 )
 

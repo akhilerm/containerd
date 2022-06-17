@@ -30,7 +30,7 @@ import (
 	"time"
 
 	. "github.com/containerd/containerd"
-	eventtypes "github.com/containerd/containerd/api/events"
+	eventtypes "github.com/containerd/containerd-api/api/events"
 	"github.com/containerd/containerd/oci"
 	"github.com/containerd/containerd/pkg/testutil"
 	"github.com/containerd/containerd/runtime/restart"

@@ -21,9 +21,9 @@ import (
 	"fmt"
 	"io"
 
-	contentapi "github.com/containerd/containerd/api/services/content/v1"
+	contentapi "github.com/containerd/containerd-api/api/services/content/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/protobuf"
 	digest "github.com/opencontainers/go-digest"
 )

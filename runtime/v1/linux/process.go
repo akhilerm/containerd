@@ -23,9 +23,9 @@ import (
 	"context"
 	"errors"
 
-	eventstypes "github.com/containerd/containerd/api/events"
-	"github.com/containerd/containerd/api/types/task"
-	"github.com/containerd/containerd/errdefs"
+	eventstypes "github.com/containerd/containerd-api/api/events"
+	"github.com/containerd/containerd-api/api/types/task"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/containerd/runtime"
 	shim "github.com/containerd/containerd/runtime/v1/shim/v1"

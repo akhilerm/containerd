@@ -19,8 +19,8 @@ package events
 import (
 	"context"
 
-	api "github.com/containerd/containerd/api/services/ttrpc/events/v1"
-	"github.com/containerd/containerd/errdefs"
+	api "github.com/containerd/containerd-api/api/services/ttrpc/events/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/events/exchange"
 	"github.com/containerd/containerd/protobuf"

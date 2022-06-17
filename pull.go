@@ -21,10 +21,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/pkg/unpack"
-	"github.com/containerd/containerd/platforms"
 	"github.com/containerd/containerd/remotes"
 	"github.com/containerd/containerd/remotes/docker"
 	"github.com/containerd/containerd/remotes/docker/schema1"

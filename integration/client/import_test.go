@@ -30,14 +30,13 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/archive/compression"
 	"github.com/containerd/containerd/archive/tartest"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/images/archive"
 	"github.com/containerd/containerd/leases"
 	"github.com/containerd/containerd/oci"
-	"github.com/containerd/containerd/platforms"
 
 	digest "github.com/opencontainers/go-digest"
 	specs "github.com/opencontainers/image-spec/specs-go"

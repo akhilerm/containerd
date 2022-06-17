@@ -24,7 +24,7 @@ import (
 	"time"
 
 	"github.com/containerd/containerd"
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/namespaces"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -32,7 +32,7 @@ import (
 	"golang.org/x/sys/unix"
 
 	"github.com/containerd/console"
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/pkg/stdio"
 	"github.com/containerd/fifo"
 	runc "github.com/containerd/go-runc"

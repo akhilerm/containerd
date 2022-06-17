@@ -22,9 +22,9 @@ import (
 	"io"
 	"os"
 
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/cmd/ctr/commands"
 	"github.com/containerd/containerd/images/archive"
-	"github.com/containerd/containerd/platforms"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/urfave/cli"
 )

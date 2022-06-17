@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	containerstore "github.com/containerd/containerd/pkg/cri/store/container"
 
 	runtimespec "github.com/opencontainers/runtime-spec/specs-go"

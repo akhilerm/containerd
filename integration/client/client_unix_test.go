@@ -22,8 +22,7 @@ package client
 import (
 	"testing"
 
-	. "github.com/containerd/containerd"
-	"github.com/containerd/containerd/platforms"
+	"github.com/containerd/containerd-api/platforms"
 )
 
 const (

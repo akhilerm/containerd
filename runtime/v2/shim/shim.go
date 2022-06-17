@@ -29,7 +29,7 @@ import (
 	"strings"
 	"time"
 
-	shimapi "github.com/containerd/containerd/api/runtime/task/v2"
+	shimapi "github.com/containerd/containerd-api/api/runtime/task/v2"
 	"github.com/containerd/containerd/events"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/namespaces"

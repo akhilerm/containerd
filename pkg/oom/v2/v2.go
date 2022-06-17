@@ -24,7 +24,7 @@ import (
 	"fmt"
 
 	cgroupsv2 "github.com/containerd/cgroups/v2"
-	eventstypes "github.com/containerd/containerd/api/events"
+	eventstypes "github.com/containerd/containerd-api/api/events"
 	"github.com/containerd/containerd/pkg/oom"
 	"github.com/containerd/containerd/runtime"
 	"github.com/containerd/containerd/runtime/v2/shim"

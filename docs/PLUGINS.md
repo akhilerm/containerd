@@ -63,8 +63,8 @@ version = 2
 
 Implementing a proxy plugin is as easy as implementing the gRPC API for a
 service. For implementing a proxy plugin in Go, look at the go doc for
-[content store service](https://godoc.org/github.com/containerd/containerd/api/services/content/v1#ContentServer)
-and [snapshotter service](https://godoc.org/github.com/containerd/containerd/api/services/snapshots/v1#SnapshotsServer).
+[content store service](https://godoc.org/github.com/containerd/containerd-api/api/services/content/v1#ContentServer)
+and [snapshotter service](https://godoc.org/github.com/containerd/containerd-api/api/services/snapshots/v1#SnapshotsServer).
 
 The following example creates a snapshot plugin binary which can be used
 with any implementation of
@@ -79,7 +79,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	snapshotsapi "github.com/containerd/containerd/api/services/snapshots/v1"
+	snapshotsapi "github.com/containerd/containerd-api/api/services/snapshots/v1"
 	"github.com/containerd/containerd/contrib/snapshotservice"
 	"github.com/containerd/containerd/snapshots/native"
 )

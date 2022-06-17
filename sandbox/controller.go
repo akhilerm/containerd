@@ -18,8 +18,7 @@ package sandbox
 
 import (
 	"context"
-
-	"github.com/containerd/containerd/api/services/sandbox/v1"
+	sandbox "github.com/containerd/containerd-api/api/services/sandbox/v1"
 )
 
 // Controller is an interface to manage sandboxes at runtime.

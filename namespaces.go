@@ -20,8 +20,8 @@ import (
 	"context"
 	"strings"
 
-	api "github.com/containerd/containerd/api/services/namespaces/v1"
-	"github.com/containerd/containerd/errdefs"
+	api "github.com/containerd/containerd-api/api/services/namespaces/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/namespaces"
 	"github.com/containerd/containerd/protobuf/types"
 )

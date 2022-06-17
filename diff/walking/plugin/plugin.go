@@ -17,11 +17,11 @@
 package plugin
 
 import (
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/diff"
 	"github.com/containerd/containerd/diff/apply"
 	"github.com/containerd/containerd/diff/walking"
 	"github.com/containerd/containerd/metadata"
-	"github.com/containerd/containerd/platforms"
 	"github.com/containerd/containerd/plugin"
 )
 

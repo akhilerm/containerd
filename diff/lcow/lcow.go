@@ -30,9 +30,9 @@ import (
 
 	"github.com/Microsoft/go-winio/pkg/security"
 	"github.com/Microsoft/hcsshim/ext4/tar2ext4"
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/diff"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/metadata"
 	"github.com/containerd/containerd/mount"

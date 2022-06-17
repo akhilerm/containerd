@@ -23,9 +23,9 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/containerd/containerd/api/types"
+	"github.com/containerd/containerd-api/api/types"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/cmd/ctr/commands"
-	"github.com/containerd/containerd/platforms"
 	pluginutils "github.com/containerd/containerd/plugin"
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/urfave/cli"

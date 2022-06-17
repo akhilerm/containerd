@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/containerd/containerd-api/errdefs"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/moby/locker"
 )
 

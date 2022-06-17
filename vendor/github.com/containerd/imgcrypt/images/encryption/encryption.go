@@ -25,11 +25,11 @@ import (
 	"io"
 	"math/rand"
 
+	"github.com/containerd/containerd-api/errdefs"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/content"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/images/converter"
-	"github.com/containerd/containerd/platforms"
 
 	"github.com/containers/ocicrypt"
 	encconfig "github.com/containers/ocicrypt/config"

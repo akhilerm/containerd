@@ -22,7 +22,7 @@ package overlay
 import (
 	"errors"
 
-	"github.com/containerd/containerd/platforms"
+	"github.com/containerd/containerd-api/platforms"
 	"github.com/containerd/containerd/plugin"
 	"github.com/containerd/containerd/snapshots/overlay"
 )

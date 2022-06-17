@@ -28,8 +28,8 @@ import (
 	"time"
 
 	"github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/errdefs"
 	containerdio "github.com/containerd/containerd/cio"
-	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/log"
 	"github.com/containerd/containerd/snapshots"
 	cni "github.com/containerd/go-cni"

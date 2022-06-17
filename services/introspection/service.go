@@ -20,7 +20,7 @@ import (
 	context "context"
 	"errors"
 
-	api "github.com/containerd/containerd/api/services/introspection/v1"
+	api "github.com/containerd/containerd-api/api/services/introspection/v1"
 	"github.com/containerd/containerd/plugin"
 	ptypes "github.com/containerd/containerd/protobuf/types"
 	"github.com/containerd/containerd/services"

@@ -19,8 +19,8 @@ package containerd
 import (
 	"context"
 
-	api "github.com/containerd/containerd/api/services/sandbox/v1"
-	"github.com/containerd/containerd/errdefs"
+	api "github.com/containerd/containerd-api/api/services/sandbox/v1"
+	"github.com/containerd/containerd-api/errdefs"
 	sb "github.com/containerd/containerd/sandbox"
 )
 

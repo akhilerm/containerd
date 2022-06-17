@@ -19,7 +19,7 @@ package snapshot
 import (
 	"sync"
 
-	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd-api/errdefs"
 	snapshot "github.com/containerd/containerd/snapshots"
 )
 

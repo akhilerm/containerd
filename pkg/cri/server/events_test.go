@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	eventtypes "github.com/containerd/containerd/api/events"
+	eventtypes "github.com/containerd/containerd-api/api/events"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/typeurl"
 	"github.com/google/go-cmp/cmp"

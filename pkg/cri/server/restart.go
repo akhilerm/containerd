@@ -26,11 +26,11 @@ import (
 	"time"
 
 	"github.com/containerd/containerd"
+	"github.com/containerd/containerd-api/errdefs"
+	"github.com/containerd/containerd-api/platforms"
 	containerdio "github.com/containerd/containerd/cio"
-	"github.com/containerd/containerd/errdefs"
 	containerdimages "github.com/containerd/containerd/images"
 	"github.com/containerd/containerd/log"
-	"github.com/containerd/containerd/platforms"
 	"github.com/containerd/typeurl"
 	"golang.org/x/sync/errgroup"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"
