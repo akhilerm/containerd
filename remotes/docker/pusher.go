@@ -275,6 +275,7 @@ func (p dockerPusher) push(ctx context.Context, desc ocispec.Descriptor, ref str
 		resp, err := req.doWithRetries(ctx, nil)
 		if err != nil {
 			pushw.setError(err)
+			pushw.Close()
 			// pushWriter.CloseWithError
 			//pr.CloseWithError(err)
 			return
@@ -285,6 +286,8 @@ func (p dockerPusher) push(ctx context.Context, desc ocispec.Descriptor, ref str
 		default:
 			err := remoteserrors.NewUnexpectedStatusErr(resp)
 			log.G(ctx).WithField("resp", resp).WithField("body", string(err.(remoteserrors.ErrUnexpectedStatus).Body)).Debug("unexpected response")
+			pushw.setError(err)
+			pushw.Close()
 			// pushWriter.CloseWithError
 			//pr.CloseWithError(err)
 			// TODO: Set and return?
