@@ -82,7 +82,7 @@ func WriteBlob(ctx context.Context, cs Ingester, ref string, r io.Reader, desc o
 			return fmt.Errorf("failed to open writer: %w", err)
 		}
 
-		return nil // all ready present
+		return nil // already present
 	}
 	defer cw.Close()
 

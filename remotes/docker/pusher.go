@@ -264,7 +264,6 @@ func (p dockerPusher) push(ctx context.Context, desc ocispec.Descriptor, ref str
 
 	// TODO: Support chunked upload
 
-	// TODO: Pass along context?
 	pushw := newPushWriter(p.dockerBase, ref, desc.Digest, p.tracker, isManifest)
 
 	req.body = func() (io.ReadCloser, error) {
@@ -278,8 +277,7 @@ func (p dockerPusher) push(ctx context.Context, desc ocispec.Descriptor, ref str
 		resp, err := req.doWithRetries(ctx, nil)
 		if err != nil {
 			pushw.setError(err)
-			// pushWriter.CloseWithError
-			//pr.CloseWithError(err)
+			pushw.Close()
 			return
 		}
 
@@ -288,9 +286,8 @@ func (p dockerPusher) push(ctx context.Context, desc ocispec.Descriptor, ref str
 		default:
 			err := remoteserrors.NewUnexpectedStatusErr(resp)
 			log.G(ctx).WithField("resp", resp).WithField("body", string(err.(remoteserrors.ErrUnexpectedStatus).Body)).Debug("unexpected response")
-			// pushWriter.CloseWithError
-			//pr.CloseWithError(err)
-			// TODO: Set and return?
+			pushw.setError(err)
+			pushw.Close()
 		}
 		pushw.setResponse(resp)
 	}()
@@ -348,12 +345,10 @@ func newPushWriter(db *dockerBase, ref string, expected digest.Digest, tracker S
 }
 
 func (pw *pushWriter) setPipe(p *io.PipeWriter) {
-	// TODO: wait for cancel?
 	pw.pipeC <- p
 }
 
 func (pw *pushWriter) setError(err error) {
-	// TODO: wait for cancel?
 	pw.errC <- err
 }
 func (pw *pushWriter) setResponse(resp *http.Response) {
@@ -367,8 +362,6 @@ func (pw *pushWriter) Write(p []byte) (n int, err error) {
 	}
 
 	if pw.pipe == nil {
-		// TODO: Wait for cancel?
-		// TODO: Wait for error?
 		p, ok := <-pw.pipeC
 		if !ok {
 			return 0, io.ErrClosedPipe
@@ -385,8 +378,6 @@ func (pw *pushWriter) Write(p []byte) (n int, err error) {
 
 			// If content has already been written, the bytes
 			// cannot be written and the caller must reset
-			// TODO: Determine if tracker can be trusted or
-			// if ErrReset should always be returned here
 			if status.Offset > 0 {
 				status.Offset = 0
 				status.UpdatedAt = time.Now()
