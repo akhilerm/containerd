@@ -167,13 +167,23 @@ func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected dig
 			// Short writes would return its own error, this indicates a read failure
 			return fmt.Errorf("failed to read expected number of bytes: %w", io.ErrUnexpectedEOF)
 		}
-		break
-	}
-
-	if err := cw.Commit(ctx, size, expected, opts...); err != nil {
-		if !errdefs.IsAlreadyExists(err) {
-			return fmt.Errorf("failed commit on ref %q: %w", ws.Ref, err)
+		if err := cw.Commit(ctx, size, expected, opts...); err != nil {
+			if errors.Is(err, ErrReset) {
+				ws, err := cw.Status()
+				if err != nil {
+					return fmt.Errorf("failed to get status: %w", err)
+				}
+				r, err = seekReader(or, ws.Offset, size)
+				if err != nil {
+					return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
+				}
+				continue
+			}
+			if !errdefs.IsAlreadyExists(err) {
+				return fmt.Errorf("failed commit on ref %q: %w", ws.Ref, err)
+			}
 		}
+		break
 	}
 
 	return nil

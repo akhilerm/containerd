@@ -450,6 +450,27 @@ func (pw *pushWriter) Commit(ctx context.Context, size int64, expected digest.Di
 		}
 	case resp = <-pw.respC:
 		defer resp.Body.Close()
+	case p, ok := <-pw.pipeC:
+		// check whether the pipe has changed in the commit, because sometimes Write
+		// can complete successfully, but the pipe may have changed. In that case, the
+		// content needs to be reset.
+		if !ok {
+			return io.ErrClosedPipe
+		}
+		pw.pipe.CloseWithError(content.ErrReset)
+		pw.pipe = p
+		status, err := pw.tracker.GetStatus(pw.ref)
+		if err != nil {
+			return err
+		}
+		// If content has already been written, the bytes
+		// cannot be written again and the caller must reset
+		if status.Offset > 0 {
+			status.Offset = 0
+			status.UpdatedAt = time.Now()
+			pw.tracker.SetStatus(pw.ref, status)
+			return content.ErrReset
+		}
 	}
 
 	// 201 is specified return status, some registries return
