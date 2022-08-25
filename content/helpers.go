@@ -149,18 +149,18 @@ func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected dig
 	// Maximum of 5 resets
 	for i := 0; i < 5; i++ {
 		copied, err := copyWithBuffer(cw, r)
-		if err != nil {
-			if errors.Is(err, ErrReset) {
-				ws, err := cw.Status()
-				if err != nil {
-					return fmt.Errorf("failed to get status: %w", err)
-				}
-				r, err = seekReader(or, ws.Offset, size)
-				if err != nil {
-					return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
-				}
-				continue
+		if errors.Is(err, ErrReset) {
+			ws, err := cw.Status()
+			if err != nil {
+				return fmt.Errorf("failed to get status: %w", err)
 			}
+			r, err = seekReader(or, ws.Offset, size)
+			if err != nil {
+				return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
+			}
+			continue
+		}
+		if err != nil {
 			return fmt.Errorf("failed to copy: %w", err)
 		}
 		if size != 0 && copied < size-ws.Offset {
