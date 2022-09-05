@@ -38,6 +38,23 @@ type copySource struct {
 func TestCopy(t *testing.T) {
 	defaultSource := newCopySource("this is the source to copy")
 
+	cf := func(buf *bytes.Buffer, st Status) commitFunction {
+		i := 0
+		return func() error {
+			if i == 0 {
+				// this is the case where, the pipewriter to which the data was being written has
+				// changed. which means we need to clear the buffer
+				i++
+				buf.Reset()
+				st.Offset = 0
+				return ErrReset
+			}
+			return nil
+		}
+	}
+	s := Status{}
+	b := bytes.Buffer{}
+
 	var testcases = []struct {
 		name     string
 		source   copySource
@@ -45,44 +62,65 @@ func TestCopy(t *testing.T) {
 		expected string
 	}{
 		{
-			name:     "copy no offset",
-			source:   defaultSource,
-			writer:   fakeWriter{},
+			name:   "copy no offset",
+			source: defaultSource,
+			writer: fakeWriter{
+				Buffer: &bytes.Buffer{},
+			},
 			expected: "this is the source to copy",
 		},
 		{
-			name:     "copy with offset from seeker",
-			source:   defaultSource,
-			writer:   fakeWriter{status: Status{Offset: 8}},
+			name:   "copy with offset from seeker",
+			source: defaultSource,
+			writer: fakeWriter{
+				Buffer: &bytes.Buffer{},
+				status: Status{Offset: 8},
+			},
 			expected: "the source to copy",
 		},
 		{
-			name:     "copy with offset from unseekable source",
-			source:   copySource{reader: bytes.NewBufferString("foobar"), size: 6},
-			writer:   fakeWriter{status: Status{Offset: 3}},
+			name:   "copy with offset from unseekable source",
+			source: copySource{reader: bytes.NewBufferString("foobar"), size: 6},
+			writer: fakeWriter{
+				Buffer: &bytes.Buffer{},
+				status: Status{Offset: 3},
+			},
 			expected: "bar",
 		},
 		{
 			name:   "commit already exists",
 			source: newCopySource("this already exists"),
-			writer: fakeWriter{commitFunc: func() error {
-				return errdefs.ErrAlreadyExists
-			}},
+			writer: fakeWriter{
+				Buffer: &bytes.Buffer{},
+				commitFunc: func() error {
+					return errdefs.ErrAlreadyExists
+				}},
 			expected: "this already exists",
+		},
+		{
+			name:   "commit fails first time with ErrReset",
+			source: newCopySource("content to copy"),
+			writer: fakeWriter{
+				Buffer:     &b,
+				status:     s,
+				commitFunc: cf(&b, s),
+			},
+			expected: "content to copy",
 		},
 	}
 
 	for _, testcase := range testcases {
-		t.Run(testcase.name, func(t *testing.T) {
+		tc := testcase
+		t.Run(tc.name, func(t *testing.T) {
 			err := Copy(context.Background(),
-				&testcase.writer,
-				testcase.source.reader,
-				testcase.source.size,
-				testcase.source.digest)
+				&tc.writer,
+				tc.source.reader,
+				tc.source.size,
+				tc.source.digest)
 
 			assert.NoError(t, err)
-			assert.Equal(t, testcase.source.digest, testcase.writer.committedDigest)
-			assert.Equal(t, testcase.expected, testcase.writer.String())
+			assert.Equal(t, tc.source.digest, tc.writer.committedDigest)
+			assert.Equal(t, tc.expected, tc.writer.String())
 		})
 	}
 }
@@ -95,11 +133,15 @@ func newCopySource(raw string) copySource {
 	}
 }
 
+type commitFunction func() error
+type writeFunction func() error
+
 type fakeWriter struct {
-	bytes.Buffer
+	*bytes.Buffer
 	committedDigest digest.Digest
 	status          Status
-	commitFunc      func() error
+	commitFunc      commitFunction
+	writeFunc       writeFunction
 }
 
 func (f *fakeWriter) Close() error {
