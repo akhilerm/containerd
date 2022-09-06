@@ -30,6 +30,9 @@ import (
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
+// maxResets is the no.of times the Copy() method can tolerate a reset of the body
+const maxResets = 5
+
 var ErrReset = errors.New("writer has been reset")
 
 var bufPool = sync.Pool{
@@ -146,8 +149,7 @@ func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected dig
 		}
 	}
 
-	// Maximum of 5 resets
-	for i := 0; i < 5; i++ {
+	for i := 0; i < maxResets; i++ {
 		copied, err := copyWithBuffer(cw, r)
 		if errors.Is(err, ErrReset) {
 			ws, err := cw.Status()

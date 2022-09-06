@@ -38,9 +38,10 @@ type copySource struct {
 func TestCopy(t *testing.T) {
 	defaultSource := newCopySource("this is the source to copy")
 
-	cf := func(buf *bytes.Buffer, st Status) commitFunction {
+	cf1 := func(buf *bytes.Buffer, st Status) commitFunction {
 		i := 0
 		return func() error {
+			// function resets the first time
 			if i == 0 {
 				// this is the case where, the pipewriter to which the data was being written has
 				// changed. which means we need to clear the buffer
@@ -52,8 +53,27 @@ func TestCopy(t *testing.T) {
 			return nil
 		}
 	}
-	s := Status{}
-	b := bytes.Buffer{}
+
+	cf2 := func(buf *bytes.Buffer, st Status) commitFunction {
+		i := 0
+		return func() error {
+			// function resets for more than the maxResets value
+			if i < maxResets+1 {
+				// this is the case where, the pipewriter to which the data was being written has
+				// changed. which means we need to clear the buffer
+				i++
+				buf.Reset()
+				st.Offset = 0
+				return ErrReset
+			}
+			return nil
+		}
+	}
+
+	s1 := Status{}
+	s2 := Status{}
+	b1 := bytes.Buffer{}
+	b2 := bytes.Buffer{}
 
 	var testcases = []struct {
 		name     string
@@ -101,26 +121,35 @@ func TestCopy(t *testing.T) {
 			name:   "commit fails first time with ErrReset",
 			source: newCopySource("content to copy"),
 			writer: fakeWriter{
-				Buffer:     &b,
-				status:     s,
-				commitFunc: cf(&b, s),
+				Buffer:     &b1,
+				status:     s1,
+				commitFunc: cf1(&b1, s1),
 			},
 			expected: "content to copy",
+		},
+		{
+			name:   "write fails more than maxReset times due to reset",
+			source: newCopySource("content to copy"),
+			writer: fakeWriter{
+				Buffer:     &b2,
+				status:     s2,
+				commitFunc: cf2(&b2, s2),
+			},
+			expected: "",
 		},
 	}
 
 	for _, testcase := range testcases {
-		tc := testcase
-		t.Run(tc.name, func(t *testing.T) {
+		t.Run(testcase.name, func(t *testing.T) {
 			err := Copy(context.Background(),
-				&tc.writer,
-				tc.source.reader,
-				tc.source.size,
-				tc.source.digest)
+				&testcase.writer,
+				testcase.source.reader,
+				testcase.source.size,
+				testcase.source.digest)
 
 			assert.NoError(t, err)
-			assert.Equal(t, tc.source.digest, tc.writer.committedDigest)
-			assert.Equal(t, tc.expected, tc.writer.String())
+			assert.Equal(t, testcase.source.digest, testcase.writer.committedDigest)
+			assert.Equal(t, testcase.expected, testcase.writer.String())
 		})
 	}
 }
@@ -134,14 +163,12 @@ func newCopySource(raw string) copySource {
 }
 
 type commitFunction func() error
-type writeFunction func() error
 
 type fakeWriter struct {
 	*bytes.Buffer
 	committedDigest digest.Digest
 	status          Status
 	commitFunc      commitFunction
-	writeFunc       writeFunction
 }
 
 func (f *fakeWriter) Close() error {
