@@ -26,6 +26,7 @@ import (
 	"time"
 
 	"github.com/containerd/containerd/errdefs"
+	"github.com/containerd/containerd/log"
 	"github.com/opencontainers/go-digest"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
@@ -160,6 +161,7 @@ func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected dig
 			if err != nil {
 				return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
 			}
+			log.G(ctx).WithField("digest", expected).Debugf("retrying copy due to reset")
 			continue
 		}
 		if err != nil {
@@ -179,6 +181,7 @@ func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected dig
 				if err != nil {
 					return fmt.Errorf("unable to resume write to %v: %w", ws.Ref, err)
 				}
+				log.G(ctx).WithField("digest", expected).Debugf("retrying copy due to reset")
 				continue
 			}
 			if !errdefs.IsAlreadyExists(err) {
