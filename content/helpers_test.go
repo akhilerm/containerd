@@ -57,7 +57,7 @@ func TestCopy(t *testing.T) {
 	cf2 := func(buf *bytes.Buffer, st Status) commitFunction {
 		i := 0
 		return func() error {
-			// function resets for more than the maxResets value
+			// function resets for more than the maxReset value
 			if i < maxResets+1 {
 				// this is the case where, the pipewriter to which the data was being written has
 				// changed. which means we need to clear the buffer

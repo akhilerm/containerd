@@ -31,7 +31,8 @@ import (
 
 	"github.com/containerd/containerd/content"
 	"github.com/containerd/containerd/errdefs"
-	digest "github.com/opencontainers/go-digest"
+	"github.com/containerd/containerd/remotes"
+	"github.com/opencontainers/go-digest"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/stretchr/testify/assert"
 )
@@ -81,6 +82,61 @@ func TestPusherErrClosedRetry(t *testing.T) {
 	reg.uploadable = true
 	if err := tryUpload(ctx, t, p, layerContent); err != nil {
 		t.Errorf("upload should succeed but got %v", err)
+	}
+}
+
+// TestPusherErrReset tests the push method if the request needs to be retried
+// i.e when ErrReset occurs
+func TestPusherErrReset(t *testing.T) {
+	p, reg, done := samplePusher(t)
+	defer done()
+
+	p.object = "latest@sha256:55d31f3af94c797b65b310569803cacc1c9f4a34bf61afcdc8138f89345c8308"
+
+	reg.uploadable = true
+	reg.putHandlerFunc = func() func(w http.ResponseWriter, r *http.Request) bool {
+		// sets whether the request should timeout so that a reset error can occur and
+		// request will be retried
+		shouldTimeout := true
+		return func(w http.ResponseWriter, r *http.Request) bool {
+			if shouldTimeout {
+				shouldTimeout = !shouldTimeout
+				w.WriteHeader(http.StatusRequestTimeout)
+				return true
+			} else {
+				return false
+			}
+		}
+	}()
+
+	ct := []byte("manifest-content")
+
+	desc := ocispec.Descriptor{
+		MediaType: ocispec.MediaTypeImageManifest,
+		Digest:    digest.FromBytes(ct),
+		Size:      int64(len(ct)),
+	}
+
+	w, err := p.push(context.Background(), desc, remotes.MakeRefKey(context.Background(), desc), false)
+	assert.Equal(t, err, nil, "no error should be there")
+
+	w.Write(ct)
+
+	pw, _ := w.(*pushWriter)
+
+	select {
+	case p, _ := <-pw.pipeC:
+		p.Write(ct)
+	case e := <-pw.errC:
+		assert.Failf(t, "error: %v while retrying request", e.Error())
+	}
+
+	select {
+	case resp := <-pw.respC:
+		// 201 should be the response code when uploading new content
+		assert.Equal(t, resp.StatusCode, http.StatusCreated)
+	case <-pw.errC:
+		assert.Fail(t, "should not give error")
 	}
 }
 
@@ -135,9 +191,20 @@ var blobUploadRegexp = regexp.MustCompile(`/([a-z0-9]+)/blobs/uploads/(.*)`)
 type uploadableMockRegistry struct {
 	availableContents []string
 	uploadable        bool
+	putHandlerFunc    func(w http.ResponseWriter, r *http.Request) bool
 }
 
 func (u *uploadableMockRegistry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPut && u.putHandlerFunc != nil {
+		// if true return the response witout calling default handler
+		if u.putHandlerFunc(w, r) {
+			return
+		}
+	}
+	u.defaultHandler(w, r)
+}
+
+func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		if matches := blobUploadRegexp.FindStringSubmatch(r.URL.Path); len(matches) != 0 {
 			if u.uploadable {
@@ -227,7 +294,6 @@ func Test_dockerPusher_push(t *testing.T) {
 		dp               dockerPusher
 		dockerBaseObject string
 		args             args
-		want             content.Writer
 		checkerFunc      func(writer pushWriter) bool
 		wantErr          error
 	}{
@@ -238,7 +304,7 @@ func Test_dockerPusher_push(t *testing.T) {
 			args: args{
 				content:           manifestContent,
 				mediatype:         ocispec.MediaTypeImageManifest,
-				ref:               strings.Join([]string{"manifest-sha256", manifestContentDigest.String()}, ":"),
+				ref:               fmt.Sprintf("manifest-%s", manifestContentDigest.String()),
 				unavailableOnFail: false,
 			},
 			checkerFunc: func(writer pushWriter) bool {
@@ -259,7 +325,7 @@ func Test_dockerPusher_push(t *testing.T) {
 			args: args{
 				content:           manifestContent,
 				mediatype:         ocispec.MediaTypeImageManifest,
-				ref:               strings.Join([]string{"manifest-sha256", manifestContentDigest.String()}, ":"),
+				ref:               fmt.Sprintf("manifest-%s", manifestContentDigest.String()),
 				unavailableOnFail: false,
 			},
 			wantErr: fmt.Errorf("content %v on remote: %w", digest.FromBytes(manifestContent), errdefs.ErrAlreadyExists),
@@ -272,7 +338,7 @@ func Test_dockerPusher_push(t *testing.T) {
 			args: args{
 				content:           layerContent,
 				mediatype:         ocispec.MediaTypeImageLayer,
-				ref:               strings.Join([]string{"layer-sha256", layerContentDigest.String()}, ":"),
+				ref:               fmt.Sprintf("layer-%s", layerContentDigest.String()),
 				unavailableOnFail: false,
 			},
 			checkerFunc: func(writer pushWriter) bool {
@@ -286,10 +352,6 @@ func Test_dockerPusher_push(t *testing.T) {
 			},
 			wantErr: nil,
 		},
-		// TODO
-		/*{
-			name: "push that can give unauthorized in the first try and then we need to do retry",
-		},*/
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
