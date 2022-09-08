@@ -133,8 +133,8 @@ func TestPusherErrReset(t *testing.T) {
 
 	select {
 	case resp := <-pw.respC:
-		// 201 should be the response code when uploading new content
-		assert.Equal(t, resp.StatusCode, http.StatusCreated)
+		assert.Equalf(t, resp.StatusCode, http.StatusCreated,
+			"201 should be the response code when uploading new content")
 	case <-pw.errC:
 		assert.Fail(t, "should not give error")
 	}
