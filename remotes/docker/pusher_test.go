@@ -205,7 +205,7 @@ func (u *uploadableMockRegistry) ServeHTTP(w http.ResponseWriter, r *http.Reques
 }
 
 func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
+	if r.Method == http.MethodPost {
 		if matches := blobUploadRegexp.FindStringSubmatch(r.URL.Path); len(matches) != 0 {
 			if u.uploadable {
 				w.Header().Set("Location", "/upload")
@@ -221,7 +221,7 @@ func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.R
 			w.WriteHeader(http.StatusAccepted)
 			return
 		}
-	} else if r.Method == "PUT" {
+	} else if r.Method == http.MethodPut {
 		mfstMatches := manifestRegexp.FindStringSubmatch(r.URL.Path)
 		if len(mfstMatches) != 0 || strings.HasPrefix(r.URL.Path, "/upload") {
 			dgstr := digest.Canonical.Digester()
@@ -237,7 +237,7 @@ func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.R
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-	} else if r.Method == "HEAD" {
+	} else if r.Method == http.MethodHead {
 		var content string
 		// check for both manifest and blob paths
 		if manifestMatch := manifestRegexp.FindStringSubmatch(r.URL.Path); len(manifestMatch) == 3 {
