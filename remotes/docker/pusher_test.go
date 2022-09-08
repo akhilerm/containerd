@@ -214,11 +214,11 @@ func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.R
 			}
 			dgstr := digest.Canonical.Digester()
 			if _, err := io.Copy(dgstr.Hash(), r.Body); err != nil {
-				w.WriteHeader(500)
+				w.WriteHeader(http.StatusInternalServerError)
 				return
 			}
 			u.availableContents = append(u.availableContents, dgstr.Digest().String())
-			w.WriteHeader(202)
+			w.WriteHeader(http.StatusAccepted)
 			return
 		}
 	} else if r.Method == "PUT" {
@@ -226,15 +226,15 @@ func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.R
 		if len(mfstMatches) != 0 || strings.HasPrefix(r.URL.Path, "/upload") {
 			dgstr := digest.Canonical.Digester()
 			if _, err := io.Copy(dgstr.Hash(), r.Body); err != nil {
-				w.WriteHeader(500)
+				w.WriteHeader(http.StatusInternalServerError)
 				return
 			}
 			u.availableContents = append(u.availableContents, dgstr.Digest().String())
 			w.Header().Set("Docker-Content-Digest", dgstr.Digest().String())
-			w.WriteHeader(201)
+			w.WriteHeader(http.StatusCreated)
 			return
 		} else if r.URL.Path == "/cannotupload" {
-			w.WriteHeader(500)
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 	} else if r.Method == "HEAD" {
@@ -248,14 +248,14 @@ func (u *uploadableMockRegistry) defaultHandler(w http.ResponseWriter, r *http.R
 		// if content is not found or if the path is not manifest or blob
 		// we return 404
 		if u.isContentAlreadyExist(content) {
-			w.WriteHeader(200)
+			w.WriteHeader(http.StatusOK)
 		} else {
-			w.WriteHeader(404)
+			w.WriteHeader(http.StatusNotFound)
 		}
 		return
 	}
 	fmt.Println(r)
-	w.WriteHeader(404)
+	w.WriteHeader(http.StatusNotFound)
 }
 
 // checks if the content is already present in the registry
