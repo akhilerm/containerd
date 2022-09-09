@@ -103,9 +103,8 @@ func TestPusherErrReset(t *testing.T) {
 				shouldTimeout = !shouldTimeout
 				w.WriteHeader(http.StatusRequestTimeout)
 				return true
-			} else {
-				return false
 			}
+			return false
 		}
 	}()
 
@@ -125,7 +124,7 @@ func TestPusherErrReset(t *testing.T) {
 	pw, _ := w.(*pushWriter)
 
 	select {
-	case p, _ := <-pw.pipeC:
+	case p := <-pw.pipeC:
 		p.Write(ct)
 	case e := <-pw.errC:
 		assert.Failf(t, "error: %v while retrying request", e.Error())
