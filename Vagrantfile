@@ -16,7 +16,6 @@
 #   limitations under the License.
 
 # Vagrantfile for Fedora and EL
-# test file
 Vagrant.configure("2") do |config|
   config.vm.box = ENV["BOX"] || "fedora/36-cloud-base"
   config.vm.box_version = ENV["BOX_VERSION"]
