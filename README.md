@@ -15,7 +15,7 @@ containerd is designed to be embedded into a larger system, rather than being us
 
 ![architecture](design/architecture.png)
 
-## Now Recruiting
+## Now Recruiting - testing changes
 
 We are a large inclusive OSS project that is welcoming help of any kind shape or form:
 * Documentation help is needed to make the product easier to consume and extend.

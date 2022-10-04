@@ -122,8 +122,6 @@ var (
 	specifierRe = regexp.MustCompile(`^[A-Za-z0-9_-]+$`)
 )
 
-// This is a test comment added for change in /platforms
-
 // Matcher matches platforms specifications, provided by an image or runtime.
 type Matcher interface {
 	Match(platform specs.Platform) bool
