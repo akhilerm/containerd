@@ -117,26 +117,19 @@ func TestPusherErrReset(t *testing.T) {
 	}
 
 	w, err := p.push(context.Background(), desc, remotes.MakeRefKey(context.Background(), desc), false)
-	assert.Equal(t, err, nil, "no error should be there")
+	assert.NoError(t, err)
 
-	w.Write(ct)
+	// first push should fail with ErrReset
+	_, err = w.Write(ct)
+	assert.NoError(t, err)
+	err = w.Commit(context.Background(), desc.Size, desc.Digest)
+	assert.Equal(t, content.ErrReset, err)
 
-	pw, _ := w.(*pushWriter)
-
-	select {
-	case p := <-pw.pipeC:
-		p.Write(ct)
-	case e := <-pw.errC:
-		assert.Failf(t, "error: %v while retrying request", e.Error())
-	}
-
-	select {
-	case resp := <-pw.respC:
-		assert.Equalf(t, resp.StatusCode, http.StatusCreated,
-			"201 should be the response code when uploading new content")
-	case <-pw.errC:
-		assert.Fail(t, "should not give error")
-	}
+	// second push should succeed
+	_, err = w.Write(ct)
+	assert.NoError(t, err)
+	err = w.Commit(context.Background(), desc.Size, desc.Digest)
+	assert.NoError(t, err)
 }
 
 func tryUpload(ctx context.Context, t *testing.T, p dockerPusher, layerContent []byte) error {
@@ -307,13 +300,9 @@ func Test_dockerPusher_push(t *testing.T) {
 				unavailableOnFail: false,
 			},
 			checkerFunc: func(writer *pushWriter) bool {
-				select {
-				case resp := <-writer.respC:
-					// 201 should be the response code when uploading a new manifest
-					return resp.StatusCode == http.StatusCreated
-				case <-writer.errC:
-					return false
-				}
+				// 201 should be the response code when uploading a new manifest
+				resp := <-writer.respC
+				return resp.StatusCode == http.StatusCreated
 			},
 			wantErr: nil,
 		},
@@ -341,13 +330,9 @@ func Test_dockerPusher_push(t *testing.T) {
 				unavailableOnFail: false,
 			},
 			checkerFunc: func(writer *pushWriter) bool {
-				select {
-				case resp := <-writer.respC:
-					// 201 should be the response code when uploading a new blob
-					return resp.StatusCode == http.StatusCreated
-				case <-writer.errC:
-					return false
-				}
+				// 201 should be the response code when uploading a new manifest
+				resp := <-writer.respC
+				return resp.StatusCode == http.StatusCreated
 			},
 			wantErr: nil,
 		},
