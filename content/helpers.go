@@ -161,7 +161,7 @@ func Copy(ctx context.Context, cw Writer, or io.Reader, size int64, expected dig
 			log.G(ctx).WithField("digest", expected).Debugf("retrying copy due to reset")
 		}
 		copied, err := copyWithBuffer(cw, r)
-		if errors.Is(err, ErrReset) {
+		if errors.Is(err, ErrReset) || errors.Is(err, io.ErrClosedPipe) {
 			ws, err := cw.Status()
 			if err != nil {
 				return fmt.Errorf("failed to get status: %w", err)
