@@ -26,10 +26,8 @@ jobs:
       
       - name: Create token file
         working-directory: src/github.com/akhilerm/containerd-test
-        with:
-          TOKEN: ${{ secrets.CONTAINERD_API_TESTING_TOKEN }}
         run: |
-          echo ${TOKEN} >> ctr-configs/token
+          echo ${{ secrets.CONTAINERD_API_TESTING_TOKEN }} >> ctr-configs/token
 
       - name: Run Init repo
         working-directory: src/github.com/akhilerm/containerd-test
