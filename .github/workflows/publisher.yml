@@ -1,0 +1,55 @@
+name: Code Publisher
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  check:
+    name: Publisher
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: akhilerm/containerd-test
+          ref: master
+          path: src/github.com/akhilerm/containerd-test
+
+      - name: Create required volumes
+        run: |
+          docker volume create local-go-workspace
+          docker volume create cache
+      
+      - name: Create token file
+        working-directory: src/github.com/akhilerm/containerd-test
+        with:
+          TOKEN: ${{ secrets.CONTAINERD_API_TESTING_TOKEN }}
+        run: |
+          echo ${TOKEN} >> ctr-configs/token
+
+      - name: Run Init repo
+        working-directory: src/github.com/akhilerm/containerd-test
+        run: |
+          docker run --rm \
+            --network host \
+            -v local-go-workspace:/go-workspace \
+            -v cache:/.cache \
+            -v $PWD/ctr-configs:/etc/ctr-configs \
+            akhilerm/containerd-publishing-bot:latest \
+            /init-repo --alsologtostderr --config=/etc/ctr-configs/config --rules-file=/etc/ctr-configs/rules
+       
+      - name: Run publishing bot
+        working-directory: src/github.com/akhilerm/containerd-test
+        run: |
+          docker run --rm \
+            --network host \
+            -v local-go-workspace:/go-workspace \
+            -v cache:/.cache \
+            -v $PWD/ctr-configs:/etc/ctr-configs \
+            -v netrc:/netrc \
+            akhilerm/containerd-publishing-bot:latest \
+            /publishing-bot --alsologtostderr --config=/etc/ctr-configs/config --rules-file=/etc/ctr-configs/rules --token-file=/etc/ctr-configs/token
