@@ -1,0 +1,4 @@
+source-org: akhilerm
+source-repo: containerd-test
+target-org: akhilerm
+rules-file: /etc/ctr-configs/config
