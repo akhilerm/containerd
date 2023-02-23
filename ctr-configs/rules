@@ -1,5 +1,5 @@
 rules:
-- destination: containerd-api-test # eg. "client-go"
+- destination: containerd-api-test
   branches:
   - name: main
 #  - name: release/1.6
