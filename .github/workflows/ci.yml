@@ -65,7 +65,7 @@ jobs:
       - name: Downgrade choclatey
         shell: bash
         run: |
-          choco upgrade chocolatey —version 1.4.0 —allow-downgrade
+          choco upgrade chocolatey --version 1.4.0 --allow-downgrade
 
       # There is currently an issue in the race detector in Go on Windows when
       # used with a newer version of GCC. The issue was first reported here:
