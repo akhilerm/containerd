@@ -42,6 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo cp sources.list /etc/apt/sources.list
           sudo add-apt-repository "deb [arch=arm64,s390x,ppc64el,riscv64] http://ports.ubuntu.com/ubuntu-ports/ $(lsb_release -sc) main" || true
           sudo add-apt-repository "deb [arch=arm64,s390x,ppc64el,riscv64] http://ports.ubuntu.com/ubuntu-ports/ $(lsb_release -sc)-updates main" || true
 
