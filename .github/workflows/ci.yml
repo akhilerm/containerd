@@ -34,7 +34,7 @@ jobs:
           - io.containerd.runc.v2
         runc: [runc, crun]
         enable_cri_sandboxes: ["", "sandboxed"]
-        os: [ubuntu-20.04, actuated-arm64-4cpu-16gb]
+        os: [ubuntu-22.04]
         exclude:
           - runtime: io.containerd.runc.v1
             runc: crun
@@ -92,6 +92,11 @@ jobs:
         if: always()
       - run: script/test/test2annotation.sh *-gotest.json
         if: always()
+
+      - name: Print Debug Info
+        run: |
+          mount
+          ls /sys/fs/cgroup
 
       - name: Integration 1
         env:
