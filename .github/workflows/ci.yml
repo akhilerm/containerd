@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - "release/**"
+      - test-cherry-pick-9456-1.7
   pull_request:
     branches:
       - main
