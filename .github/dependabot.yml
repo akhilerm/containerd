@@ -18,6 +18,10 @@ updates:
       otel:
         patterns:
           - "go.opentelemetry.io/*"
+    labels:
+      - "dependencies"
+      - "go"
+      - "ok-to-test"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
