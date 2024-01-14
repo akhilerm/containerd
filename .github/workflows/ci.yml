@@ -25,7 +25,6 @@ jobs:
     name: Linux Integration
     runs-on: ${{ matrix.os }}
     timeout-minutes: 40
-    needs: [linters, protos, man]
 
     strategy:
       fail-fast: false
