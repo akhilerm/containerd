@@ -23,8 +23,8 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	transferapi "github.com/containerd/containerd/v2/api/services/transfer/v1"
-	transfertypes "github.com/containerd/containerd/v2/api/types/transfer"
+	transferapi "github.com/containerd/containerd/api/v2/services/transfer/v1"
+	transfertypes "github.com/containerd/containerd/api/v2/types/transfer"
 	"github.com/containerd/containerd/v2/pkg/oci"
 	"github.com/containerd/containerd/v2/pkg/streaming"
 	"github.com/containerd/containerd/v2/pkg/transfer"

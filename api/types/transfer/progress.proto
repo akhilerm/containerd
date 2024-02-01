@@ -20,7 +20,7 @@ package containerd.types.transfer;
 
 import "github.com/containerd/containerd/api/types/descriptor.proto";
 
-option go_package = "github.com/containerd/containerd/v2/api/types/transfer";
+option go_package = "github.com/containerd/containerd/api/v2/types/transfer";
 
 message Progress {
 	string event = 1;

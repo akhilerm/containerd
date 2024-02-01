@@ -29,7 +29,7 @@ import (
 	"testing"
 	"time"
 
-	apitask "github.com/containerd/containerd/v2/api/runtime/task/v3"
+	apitask "github.com/containerd/containerd/api/v2/runtime/task/v3"
 	"github.com/containerd/containerd/v2/core/runtime/v2/shim"
 	"github.com/containerd/containerd/v2/integration/images"
 	"github.com/containerd/containerd/v2/pkg/namespaces"

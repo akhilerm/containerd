@@ -22,7 +22,7 @@ import (
 	"strings"
 	"time"
 
-	snapshotsapi "github.com/containerd/containerd/v2/api/services/snapshots/v1"
+	snapshotsapi "github.com/containerd/containerd/api/v2/services/snapshots/v1"
 	"github.com/containerd/containerd/v2/core/mount"
 	"github.com/containerd/containerd/v2/protobuf"
 )

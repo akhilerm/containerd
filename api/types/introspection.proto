@@ -20,7 +20,7 @@ package containerd.types;
 
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/containerd/containerd/v2/api/types;types";
+option go_package = "github.com/containerd/containerd/api/v2/types;types";
 
 message RuntimeRequest {
 	string runtime_path = 1;

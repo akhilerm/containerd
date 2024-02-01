@@ -21,7 +21,7 @@ import (
 	"testing"
 	"time"
 
-	v1 "github.com/containerd/containerd/v2/api/services/ttrpc/events/v1"
+	v1 "github.com/containerd/containerd/api/v2/services/ttrpc/events/v1"
 	"github.com/containerd/containerd/v2/pkg/namespaces"
 	"github.com/containerd/containerd/v2/pkg/ttrpcutil"
 	"github.com/containerd/containerd/v2/protobuf"

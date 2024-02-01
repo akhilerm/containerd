@@ -19,7 +19,7 @@ package podsandbox
 import (
 	"context"
 
-	"github.com/containerd/containerd/v2/api/types"
+	"github.com/containerd/containerd/api/v2/types"
 	"github.com/containerd/errdefs"
 )
 

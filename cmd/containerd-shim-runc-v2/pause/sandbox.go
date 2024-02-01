@@ -22,8 +22,8 @@ import (
 	"context"
 	"runtime"
 
-	api "github.com/containerd/containerd/v2/api/runtime/sandbox/v1"
-	"github.com/containerd/containerd/v2/api/types"
+	api "github.com/containerd/containerd/api/v2/runtime/sandbox/v1"
+	"github.com/containerd/containerd/api/v2/types"
 	"github.com/containerd/containerd/v2/core/runtime/v2/shim"
 	"github.com/containerd/containerd/v2/pkg/shutdown"
 	"github.com/containerd/containerd/v2/plugins"

@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"time"
 
-	runtimeAPI "github.com/containerd/containerd/v2/api/runtime/sandbox/v1"
-	"github.com/containerd/containerd/v2/api/types"
+	runtimeAPI "github.com/containerd/containerd/api/v2/runtime/sandbox/v1"
+	"github.com/containerd/containerd/api/v2/types"
 	"github.com/containerd/containerd/v2/core/mount"
 	"github.com/containerd/containerd/v2/core/runtime"
 	v2 "github.com/containerd/containerd/v2/core/runtime/v2"

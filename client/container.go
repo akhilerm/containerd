@@ -24,9 +24,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/containerd/containerd/v2/api/services/tasks/v1"
-	"github.com/containerd/containerd/v2/api/types"
-	tasktypes "github.com/containerd/containerd/v2/api/types/task"
+	"github.com/containerd/containerd/api/v2/types"
+	tasktypes "github.com/containerd/containerd/api/v2/types/task"
 	"github.com/containerd/containerd/v2/core/containers"
 	"github.com/containerd/containerd/v2/core/images"
 	"github.com/containerd/containerd/v2/core/runtime/v2/runc/options"

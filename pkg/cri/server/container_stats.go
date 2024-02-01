@@ -20,7 +20,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/containerd/containerd/v2/api/services/tasks/v1"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"
 )
 

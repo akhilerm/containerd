@@ -22,7 +22,7 @@ import (
 	"github.com/containerd/go-cni"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"
 
-	"github.com/containerd/containerd/v2/api/types"
+	"github.com/containerd/containerd/api/v2/types"
 	"github.com/containerd/containerd/v2/core/sandbox"
 	"github.com/containerd/containerd/v2/internal/registrar"
 	criconfig "github.com/containerd/containerd/v2/pkg/cri/config"

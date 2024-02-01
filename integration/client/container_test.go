@@ -31,7 +31,7 @@ import (
 	"testing"
 	"time"
 
-	apievents "github.com/containerd/containerd/v2/api/events"
+	apievents "github.com/containerd/containerd/api/v2/events"
 	. "github.com/containerd/containerd/v2/client"
 	"github.com/containerd/containerd/v2/core/containers"
 	"github.com/containerd/containerd/v2/core/images"

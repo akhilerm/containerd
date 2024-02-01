@@ -28,8 +28,8 @@ import (
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"
 	"k8s.io/utils/clock"
 
-	eventtypes "github.com/containerd/containerd/v2/api/events"
-	apitasks "github.com/containerd/containerd/v2/api/services/tasks/v1"
+	eventtypes "github.com/containerd/containerd/api/v2/events"
+	apitasks "github.com/containerd/containerd/api/v2/services/tasks/v1"
 	containerd "github.com/containerd/containerd/v2/client"
 	containerdio "github.com/containerd/containerd/v2/pkg/cio"
 	"github.com/containerd/containerd/v2/pkg/cri/constants"

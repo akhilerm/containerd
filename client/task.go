@@ -26,8 +26,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/containerd/containerd/v2/api/services/tasks/v1"
-	"github.com/containerd/containerd/v2/api/types"
+	"github.com/containerd/containerd/api/v2/services/tasks/v1"
+	"github.com/containerd/containerd/api/v2/types"
 	"github.com/containerd/containerd/v2/core/content"
 	"github.com/containerd/containerd/v2/core/diff"
 	"github.com/containerd/containerd/v2/core/images"

@@ -17,7 +17,7 @@
 package client
 
 import (
-	diffapi "github.com/containerd/containerd/v2/api/services/diff/v1"
+	diffapi "github.com/containerd/containerd/api/v2/services/diff/v1"
 	"github.com/containerd/containerd/v2/core/diff"
 	"github.com/containerd/containerd/v2/core/diff/proxy"
 )
