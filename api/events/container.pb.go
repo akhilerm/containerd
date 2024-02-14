@@ -22,7 +22,7 @@
 package events
 
 import (
-	_ "github.com/containerd/containerd/api/types"
+	_ "github.com/containerd/containerd/api/v2/types"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
