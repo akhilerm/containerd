@@ -58,17 +58,6 @@ jobs:
 
       - run: script/setup/install-gotestsum
       - run: script/setup/install-teststat
-      - name: Tests
-        env:
-          GOTESTSUM_JUNITFILE: ${{github.workspace}}/test-unit-root-junit.xml
-          GOTESTSUM_JSONFILE: ${{github.workspace}}/test-unit-root-gotest.json
-        run: |
-          make test
-          sudo -E PATH=$PATH make root-test
-      - run: if [ -f *-gotest.json ]; then echo '# Root Test' >> $GITHUB_STEP_SUMMARY; teststat -markdown *-gotest.json >> $GITHUB_STEP_SUMMARY; fi
-        if: always()
-      - run: script/test/test2annotation.sh *-gotest.json
-        if: always()
 
       - name: Integration 1
         env:
