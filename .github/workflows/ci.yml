@@ -18,7 +18,7 @@ jobs:
       matrix:
         runtime:
           - io.containerd.runc.v2
-        runc: [runc]
+        runc: [crun]
         os: [ubuntu-22.04]
 
     env:
