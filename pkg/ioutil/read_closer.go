@@ -18,7 +18,7 @@ package ioutil
 
 import "io"
 
-// writeCloseInformer wraps a reader with a closeC function.
+// writeCloseInformer wraps a reader with a close function.
 type wrapReadCloser struct {
 	reader *io.PipeReader
 	writer *io.PipeWriter

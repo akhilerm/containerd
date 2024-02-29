@@ -30,7 +30,7 @@ import (
 
 func TestWriteCloseInformer(t *testing.T) {
 	original := &writeCloser{}
-	wci, closeC := NewWriteCloseInformer(original)
+	wci, close := NewWriteCloseInformer(original)
 	data := "test"
 
 	n, err := wci.Write([]byte(data))
@@ -39,7 +39,7 @@ func TestWriteCloseInformer(t *testing.T) {
 	assert.NoError(t, err)
 
 	select {
-	case <-closeC:
+	case <-close:
 		assert.Fail(t, "write closer closed")
 	default:
 	}
@@ -48,7 +48,7 @@ func TestWriteCloseInformer(t *testing.T) {
 	assert.True(t, original.closed)
 
 	select {
-	case <-closeC:
+	case <-close:
 	default:
 		assert.Fail(t, "write closer not closed")
 	}
