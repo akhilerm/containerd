@@ -74,11 +74,11 @@ func TestJunkData(t *testing.T) {
 	assert := assert.New(t)
 	store := NewStore()
 	releaseCount := 0
-	store.Releaser = func(label string) {
+	store.Releaser = func(_ string) {
 		releaseCount++
 	}
 	reserveCount := 0
-	store.Reserver = func(label string) {
+	store.Reserver = func(_ string) {
 		reserveCount++
 	}
 

@@ -42,14 +42,14 @@ func WriteByteStream(ctx context.Context, stream streaming.Stream) io.WriteClose
 			default:
 			}
 
-			any, err := stream.Recv()
+			pbany, err := stream.Recv()
 			if err != nil {
 				if !errors.Is(err, io.EOF) && !errors.Is(err, context.Canceled) {
 					log.G(ctx).WithError(err).Error("send byte stream ended without EOF")
 				}
 				return
 			}
-			i, err := typeurl.UnmarshalAny(any)
+			i, err := typeurl.UnmarshalAny(pbany)
 			if err != nil {
 				log.G(ctx).WithError(err).Error("failed to unmarshal stream object")
 				continue
@@ -107,14 +107,14 @@ func (wbs *writeByteStream) Write(p []byte) (n int, err error) {
 		data := &transferapi.Data{
 			Data: p[:max],
 		}
-		var any typeurl.Any
-		any, err = typeurl.MarshalAny(data)
+		var pbany typeurl.Any
+		pbany, err = typeurl.MarshalAny(data)
 		if err != nil {
 			log.G(wbs.ctx).WithError(err).Errorf("failed to marshal data for send")
 			// TODO: Send error message on stream before close to allow remote side to return error
 			return
 		}
-		if err = wbs.stream.Send(any); err != nil {
+		if err = wbs.stream.Send(pbany); err != nil {
 			log.G(wbs.ctx).WithError(err).Errorf("send failed")
 			return
 		}

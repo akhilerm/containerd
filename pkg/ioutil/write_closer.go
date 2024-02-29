@@ -21,21 +21,21 @@ import (
 	"sync"
 )
 
-// writeCloseInformer wraps passed in write closer with a close channel.
-// Caller could wait on the close channel for the write closer to be
+// writeCloseInformer wraps passed in write closer with a closeC channel.
+// Caller could wait on the closeC channel for the write closer to be
 // closed.
 type writeCloseInformer struct {
-	close chan struct{}
-	wc    io.WriteCloser
+	closeC chan struct{}
+	wc     io.WriteCloser
 }
 
 // NewWriteCloseInformer creates the writeCloseInformer from a write closer.
 func NewWriteCloseInformer(wc io.WriteCloser) (io.WriteCloser, <-chan struct{}) {
-	close := make(chan struct{})
+	closeC := make(chan struct{})
 	return &writeCloseInformer{
-		close: close,
-		wc:    wc,
-	}, close
+		closeC: closeC,
+		wc:     wc,
+	}, closeC
 }
 
 // Write passes through the data into the internal write closer.
@@ -43,14 +43,14 @@ func (w *writeCloseInformer) Write(p []byte) (int, error) {
 	return w.wc.Write(p)
 }
 
-// Close closes the internal write closer and inform the close channel.
+// Close closes the internal write closer and inform the closeC channel.
 func (w *writeCloseInformer) Close() error {
 	err := w.wc.Close()
-	close(w.close)
+	close(w.closeC)
 	return err
 }
 
-// nopWriteCloser wraps passed in writer with a nop close function.
+// nopWriteCloser wraps passed in writer with a nop closeC function.
 type nopWriteCloser struct {
 	w io.Writer
 }
@@ -65,7 +65,7 @@ func (n *nopWriteCloser) Write(p []byte) (int, error) {
 	return n.w.Write(p)
 }
 
-// Close is a nop close function.
+// Close is a nop closeC function.
 func (n *nopWriteCloser) Close() error {
 	return nil
 }

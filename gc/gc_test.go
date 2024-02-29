@@ -107,7 +107,7 @@ func lookup(refs map[string][]string) func(id Node) ([]Node, error) {
 }
 
 func lookupc(refs map[string][]string) func(context.Context, Node, func(Node)) error {
-	return func(ctx context.Context, ref Node, fn func(Node)) error {
+	return func(_ context.Context, ref Node, fn func(Node)) error {
 		for _, n := range toNodes(refs[ref.Key]) {
 			fn(n)
 		}
