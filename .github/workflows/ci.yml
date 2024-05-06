@@ -203,6 +203,7 @@ jobs:
         run: |
           make build
           make binaries
+          go version bin/containerd
 
   #
   # Integration and CRI tests
