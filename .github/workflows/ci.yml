@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - test-vagrant
+      - main
 
 permissions: # added using https://github.com/step-security/secure-workflows
   contents: read
