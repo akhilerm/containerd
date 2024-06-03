@@ -13,7 +13,7 @@ permissions: # added using https://github.com/step-security/secure-workflows
 jobs:
   integration-vagrant:
     name: Vagrant integration
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 60
 
     strategy:
