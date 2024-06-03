@@ -33,10 +33,10 @@ jobs:
           cat /proc/cpuinfo
           free -mt
       - uses: actions/checkout@v4
-      - uses: actions/cache@v4
-        with:
-          path: /root/.vagrant.d
-          key: vagrant-${{ matrix.box }}
+#      - uses: actions/cache@v4
+#        with:
+#          path: /root/.vagrant.d
+#          key: vagrant-${{ matrix.box }}
       - name: Set up vagrant
         run: |
           # Canonical's Vagrant 2.2.19 dpkg cannot download Fedora 38 image: https://bugs.launchpad.net/vagrant/+bug/2017828
