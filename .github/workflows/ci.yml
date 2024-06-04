@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         box:
-          - rockylinux/8@9.0.0
+          - rockylinux/9@4.0.0
     env:
       BOX: ${{ matrix.box }}
 
