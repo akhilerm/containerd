@@ -20,6 +20,12 @@ jobs:
       fail-fast: false
       matrix:
         box:
+          - fedora/39-cloud-base
+          # We have to keep EL8 to test old glibc, cgroup, kernel, etc.
+          # The image was changed from rockylinux/8 to almalinux/8,
+          # as the former one no longer works:
+          # https://github.com/containerd/containerd/pull/10297
+          - almalinux/8
           - rockylinux/9@4.0.0
     env:
       BOX: ${{ matrix.box }}
@@ -43,7 +49,7 @@ jobs:
           # So we have to install Vagrant >= 2.3.1 from the upstream: https://github.com/opencontainers/runc/blob/v1.1.8/.cirrus.yml#L41-L49
           curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
           echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo sed -i 's/^# deb-src/deb-src/' /etc/apt/sources.list
+          sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
           sudo apt-get update
           sudo apt-get install -y libvirt-daemon libvirt-daemon-system vagrant
           sudo systemctl enable --now libvirtd
