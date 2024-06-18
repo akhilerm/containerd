@@ -57,9 +57,15 @@ jobs:
           Suites: jammy
           Components: main restricted universe multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+          
+          Types: deb deb-src
+          URIs: http://security.archive.ubuntu.com/ubuntu
+          Suites: jammy-security
+          Components: main restricted universe multiverse
+          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
           EOF
           sudo apt-get update
-          sudo apt-get install -y libvirt-daemon libvirt-daemon-system vagrant
+          sudo apt-get install -y libvirt-daemon libvirt-daemon-system vagrant ovmf=2022.02-3ubuntu0.22.04.2
           sudo systemctl enable --now libvirtd
           sudo apt-get build-dep -y vagrant ruby-libvirt
           sudo apt-get install -y --no-install-recommends libxslt-dev libxml2-dev libvirt-dev ruby-bundler ruby-dev zlib1g-dev ovmf
