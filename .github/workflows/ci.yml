@@ -57,9 +57,7 @@ jobs:
           Suites: jammy
           Components: main restricted universe multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-          EOF
-          # jammy security needs to be added so that the compatible ovmf package can be fetched
-          sudo tee -a /etc/apt/sources.list.d/ubuntu.sources <<EOF
+          
           Types: deb deb-src
           URIs: http://security.archive.ubuntu.com/ubuntu
           Suites: jammy-security
