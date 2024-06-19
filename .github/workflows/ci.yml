@@ -70,6 +70,8 @@ jobs:
           sudo apt-get build-dep -y vagrant ruby-libvirt
           sudo apt-get install -y --no-install-recommends libxslt-dev libxml2-dev libvirt-dev ruby-bundler ruby-dev zlib1g-dev
           sudo vagrant plugin install vagrant-libvirt
+      - name: Print sources
+        run: cat /etc/apt/sources.list.d/ubuntu.sources
       - name: Boot VM
         run: sudo BOX=$BOX vagrant up --no-tty
       - name: test-integration
