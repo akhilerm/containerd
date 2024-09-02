@@ -27,6 +27,8 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.54.2
 # the following packages need to exist in $GOPATH so we can't use
 # go modules-aware mode of `go get` for these includes used during
 # proto building
-go install github.com/gogo/googleapis/protoc-gen-gogogoogleapis@v1.4.0 || true
-cd $GOPATH
-GO111MODULE=off go get -d github.com/gogo/protobuf || true
+GOGO_DIR="$GOPATH/src/github.com/gogo"
+mkdir -p "$GOGO_DIR"
+cd "$GOGO_DIR"
+git clone https://github.com/gogo/googleapis
+git clone https://github.com/gogo/protobuf
