@@ -43,6 +43,15 @@ func (c *criService) ListPodSandboxMetrics(ctx context.Context, r *runtime.ListP
 }
 
 // gives the metrics for a given container in a sandbox
-func (c *criService) listContainerMetrics(sandboxID string, containerID string) *runtime.ContainerMetrics {
+func (c *criService) getContainerMetrics(sandboxID string, containerID string) *runtime.ContainerMetrics {
 
+}
+
+// getSandboxMetrics gets metrics of sandbox along with the containers
+func (c *criService) getSandboxMetrics(ctx context.Context, sandboxID string) *runtime.PodSandboxMetrics {
+	s, err := c.sandboxStore.Get(sandboxID)
+	if err != nil {
+		return nil
+	}
+	c.podSandboxStats(ctx, s)
 }
