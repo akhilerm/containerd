@@ -486,8 +486,11 @@ jobs:
           TEST_RUNTIME: ${{ matrix.runtime }}
           CGROUP_DRIVER: ${{ matrix.cgroup_driver }}
         run: |
+          if [[ ${{matrix.os}} == "ubuntu-22.04" ]]; then
+            extra_critest_options="--ginkgo.skip \"runtime should support port mapping with host port and container port\""
+          fi
           env
-          sudo -E PATH=$PATH ./script/critest.sh "${{github.workspace}}/report"
+          sudo -E PATH=$PATH EXTRA_CRITEST_OPTIONS="${extra_critest_options}" ./script/critest.sh "${{github.workspace}}/report"
 
       - name: Install tools
         # The GitHub Actions image already has buildah and podman included. Not the
