@@ -33,6 +33,7 @@ import (
 	"github.com/containerd/errdefs"
 	"github.com/containerd/log"
 	"github.com/containerd/typeurl/v2"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	runtime "k8s.io/cri-api/pkg/apis/runtime/v1"
 
@@ -49,9 +50,10 @@ func (c *criService) ListPodSandboxMetrics(ctx context.Context, r *runtime.ListP
 	sandboxes := c.sandboxStore.List()
 	podMetrics := make([]*runtime.PodSandboxMetrics, 0, len(sandboxes))
 	var mu sync.Mutex
-	var wg sync.WaitGroup
 
-	semaphore := make(chan struct{}, 10) // Limit to 10 concurrent goroutines
+	// Create errgroup with context and limit concurrency to 10
+	g, gctx := errgroup.WithContext(ctx)
+	g.SetLimit(10)
 
 	for _, sandbox := range sandboxes {
 		// Only collect metrics for ready sandboxes
@@ -65,32 +67,38 @@ func (c *criService) ListPodSandboxMetrics(ctx context.Context, r *runtime.ListP
 			break
 		}
 
-		semaphore <- struct{}{} // Acquire semaphore
-		wg.Add(1)
-		go func(sb sandboxstore.Sandbox) {
-			defer wg.Done()
-			defer func() { <-semaphore }() // Release semaphore
-
-			metrics, err := c.collectPodSandboxMetrics(ctx, sb)
+		sb := sandbox
+		g.Go(func() error {
+			metrics, err := c.collectPodSandboxMetrics(gctx, sb)
 			if err != nil {
 				switch {
 				case errdefs.IsUnavailable(err), errdefs.IsNotFound(err):
-					log.G(ctx).WithField("podsandboxid", sb.ID).WithError(err).Debug("failed to get pod sandbox metrics, this is likely a transient error")
+					log.G(gctx).WithField("podsandboxid", sb.ID).WithError(err).Debug("failed to get pod sandbox metrics, this is likely a transient error")
+					// Don't return error for transient issues, just log and continue
+					return nil
 				case errdefs.IsCanceled(err):
-					log.G(ctx).WithField("podsandboxid", sb.ID).WithError(err).Debug("metrics collection cancelled")
+					log.G(gctx).WithField("podsandboxid", sb.ID).WithError(err).Debug("metrics collection cancelled")
+					// Return the cancellation error to stop other goroutines
+					return err
 				default:
-					log.G(ctx).WithField("podsandboxid", sb.ID).WithError(err).Error("failed to collect pod sandbox metrics")
+					log.G(gctx).WithField("podsandboxid", sb.ID).WithError(err).Error("failed to collect pod sandbox metrics")
+					// Don't return error for individual failures, just log and continue
+					return nil
 				}
-				return
 			}
 
 			mu.Lock()
 			podMetrics = append(podMetrics, metrics)
 			mu.Unlock()
-		}(sandbox)
+			return nil
+		})
 	}
 
-	wg.Wait()
+	// Wait for all goroutines to complete
+	if err := g.Wait(); err != nil {
+		// log the error and return the metrics that we have collected so far
+		log.G(ctx).WithError(err).Error("error during metrics collection, returning partial results")
+	}
 
 	return &runtime.ListPodSandboxMetricsResponse{
 		PodMetrics: podMetrics,
